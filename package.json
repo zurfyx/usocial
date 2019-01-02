@@ -8,7 +8,7 @@
     "client-dev": "react-scripts start",
     "api-dev": "nodemon --watch api api",
     "client-build": "react-scripts build",
-    "client-serve": "http-server -p ${PORT:-3000} ./build",
+    "client-serve": "serve -p ${PORT:-3000} -s build",
     "api-serve": "node api",
     "test": "react-scripts test"
   },
@@ -23,7 +23,8 @@
   "devDependencies": {
     "http-server": "^0.11.1",
     "nodemon": "^1.18.9",
-    "npm-run-all": "^4.1.5"
+    "npm-run-all": "^4.1.5",
+    "serve": "^10.1.1"
   },
   "eslintConfig": {
     "extends": "react-app"
