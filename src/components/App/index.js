@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Fragment } from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
@@ -23,6 +23,11 @@ const AppContainer = styled.div`
 `;
 
 function App() {
+  const API = process.env.REACT_APP_API || 'http://localhost:3001';
+  console.info(API)
+  fetch(API + '/').then((v) => {
+    console.info(v);
+  })
   return (
     <Fragment>
       <GlobalStyle></GlobalStyle>

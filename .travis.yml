@@ -1,0 +1,43 @@
+sudo: false
+
+language: node_js
+node_js:
+  - "10"
+cache: npm
+
+install:
+  - npm install
+
+script:
+  - npm test
+  - npm run client-build
+
+deploy:
+  - provider: heroku
+    app: uport-social-dev
+    api_key:
+      secure: "E8n1BFPBzWftivVxAglThM+WTIyzSyBcXg7kr4+zkVRkEDZvbGXCXj5q3SMwfMXFgzVj/eUT3lvcKIHBwlp2TjUD8jtE2Kaa3Ohx3bknBZIo24Hg/1iPaQ5HoSWPwMTzOG4FRToVUBgwTb1P2SeOC9/IzhQXxaR/4zAuJ6qhwcKq8lW/8j0NH2OvlkADutDHWv57uIeVoL8NwYEEWiiLv9Ee7jH+vCC4rVM9P2Rt512bEwN3BnKVrn0xDNBmYNhtpAL7W5njbjjrJM6bdANjWUkiSmk1LLXvKoXc8XPnOBqMPxHkdVhLi9TYFx5DkISBwjjCRuS/IkjP8NMwcN49MhWh3Z2RTlqwosPLn6bPy53iXm0WMKLzoZaUb7BQOZ8TuVuji6QTaGcOMxXHuSoHvVjYqzdpEtVhpZ6g9n5u5/PsVuBEta9GO/rmVXj6hSQKjYjGcPi80l5EYcDfCPnsTABcHAI6+EdpprQXyg9PEL6cKWOQI5iJfEtJET99FFleOt0JRE8Iw8/SoRJ4UiQl4zdJZN91VqusDfV5zaB+lj+SOyD2rGzdu8aIkqgWlQDLpij95brtYw354ok8LlISu72EzN7X8+/yXOD+BuLHH8cV1fKfyn+JitQ5/ctOE0MKS6Ca0a5PCUsfbrN4UlJoXbwBzNKr55RsOc8JdV6H7dU="
+    on:
+      branch: development
+    skip_cleanup: true
+  - provider: heroku
+    app: uport-social-api-dev
+    api_key:
+      secure: "E8n1BFPBzWftivVxAglThM+WTIyzSyBcXg7kr4+zkVRkEDZvbGXCXj5q3SMwfMXFgzVj/eUT3lvcKIHBwlp2TjUD8jtE2Kaa3Ohx3bknBZIo24Hg/1iPaQ5HoSWPwMTzOG4FRToVUBgwTb1P2SeOC9/IzhQXxaR/4zAuJ6qhwcKq8lW/8j0NH2OvlkADutDHWv57uIeVoL8NwYEEWiiLv9Ee7jH+vCC4rVM9P2Rt512bEwN3BnKVrn0xDNBmYNhtpAL7W5njbjjrJM6bdANjWUkiSmk1LLXvKoXc8XPnOBqMPxHkdVhLi9TYFx5DkISBwjjCRuS/IkjP8NMwcN49MhWh3Z2RTlqwosPLn6bPy53iXm0WMKLzoZaUb7BQOZ8TuVuji6QTaGcOMxXHuSoHvVjYqzdpEtVhpZ6g9n5u5/PsVuBEta9GO/rmVXj6hSQKjYjGcPi80l5EYcDfCPnsTABcHAI6+EdpprQXyg9PEL6cKWOQI5iJfEtJET99FFleOt0JRE8Iw8/SoRJ4UiQl4zdJZN91VqusDfV5zaB+lj+SOyD2rGzdu8aIkqgWlQDLpij95brtYw354ok8LlISu72EzN7X8+/yXOD+BuLHH8cV1fKfyn+JitQ5/ctOE0MKS6Ca0a5PCUsfbrN4UlJoXbwBzNKr55RsOc8JdV6H7dU="
+    on:
+      branch: development
+    skip_cleanup: true
+  - provider: heroku
+    app: uport-social
+    api_key:
+      secure: "E8n1BFPBzWftivVxAglThM+WTIyzSyBcXg7kr4+zkVRkEDZvbGXCXj5q3SMwfMXFgzVj/eUT3lvcKIHBwlp2TjUD8jtE2Kaa3Ohx3bknBZIo24Hg/1iPaQ5HoSWPwMTzOG4FRToVUBgwTb1P2SeOC9/IzhQXxaR/4zAuJ6qhwcKq8lW/8j0NH2OvlkADutDHWv57uIeVoL8NwYEEWiiLv9Ee7jH+vCC4rVM9P2Rt512bEwN3BnKVrn0xDNBmYNhtpAL7W5njbjjrJM6bdANjWUkiSmk1LLXvKoXc8XPnOBqMPxHkdVhLi9TYFx5DkISBwjjCRuS/IkjP8NMwcN49MhWh3Z2RTlqwosPLn6bPy53iXm0WMKLzoZaUb7BQOZ8TuVuji6QTaGcOMxXHuSoHvVjYqzdpEtVhpZ6g9n5u5/PsVuBEta9GO/rmVXj6hSQKjYjGcPi80l5EYcDfCPnsTABcHAI6+EdpprQXyg9PEL6cKWOQI5iJfEtJET99FFleOt0JRE8Iw8/SoRJ4UiQl4zdJZN91VqusDfV5zaB+lj+SOyD2rGzdu8aIkqgWlQDLpij95brtYw354ok8LlISu72EzN7X8+/yXOD+BuLHH8cV1fKfyn+JitQ5/ctOE0MKS6Ca0a5PCUsfbrN4UlJoXbwBzNKr55RsOc8JdV6H7dU="
+    on:
+      branch: master
+    skip_cleanup: true
+  - provider: heroku
+    app: uport-social-api
+    api_key:
+      secure: "E8n1BFPBzWftivVxAglThM+WTIyzSyBcXg7kr4+zkVRkEDZvbGXCXj5q3SMwfMXFgzVj/eUT3lvcKIHBwlp2TjUD8jtE2Kaa3Ohx3bknBZIo24Hg/1iPaQ5HoSWPwMTzOG4FRToVUBgwTb1P2SeOC9/IzhQXxaR/4zAuJ6qhwcKq8lW/8j0NH2OvlkADutDHWv57uIeVoL8NwYEEWiiLv9Ee7jH+vCC4rVM9P2Rt512bEwN3BnKVrn0xDNBmYNhtpAL7W5njbjjrJM6bdANjWUkiSmk1LLXvKoXc8XPnOBqMPxHkdVhLi9TYFx5DkISBwjjCRuS/IkjP8NMwcN49MhWh3Z2RTlqwosPLn6bPy53iXm0WMKLzoZaUb7BQOZ8TuVuji6QTaGcOMxXHuSoHvVjYqzdpEtVhpZ6g9n5u5/PsVuBEta9GO/rmVXj6hSQKjYjGcPi80l5EYcDfCPnsTABcHAI6+EdpprQXyg9PEL6cKWOQI5iJfEtJET99FFleOt0JRE8Iw8/SoRJ4UiQl4zdJZN91VqusDfV5zaB+lj+SOyD2rGzdu8aIkqgWlQDLpij95brtYw354ok8LlISu72EzN7X8+/yXOD+BuLHH8cV1fKfyn+JitQ5/ctOE0MKS6Ca0a5PCUsfbrN4UlJoXbwBzNKr55RsOc8JdV6H7dU="
+    on:
+      branch: master
+    skip_cleanup: true

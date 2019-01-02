@@ -12,9 +12,10 @@ npm start
 ## Production
 
 ```
-export API=https://localhost:3001
-export API_PORT=3001
-export PORT=3000
+export REACT_APP_CLIENT=http://localhost:3000
+export REACT_APP_PORT=3000
+export REACT_APP_API=http://localhost:3001
+export REACT_APP_API_PORT=3001
 npm run client-build
 npm run client-serve &
 npm run api-serve &
