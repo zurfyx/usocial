@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import MaxWidth from './MaxWidth';
+import ExternalLink from './ExternalLink';
+import ScreenReader from './ScreenReader';
 
 const HomeContainer = styled.div`
   height: 100vh;
@@ -38,7 +40,7 @@ const Header = styled.header`
 const Logo = styled.a`
 `;
 
-const GithubLogo = styled.span`
+const GithubLogo = styled(ExternalLink)`
   float: right;
 `;
 
@@ -65,8 +67,9 @@ function Home() {
       <HomeContent>
         <Header>
           <Logo href="/">uSocial</Logo>
-          <GithubLogo>
-            <a href="https://github.com/usocial" target="_blank" rel="noopener noreferrer"><i className="fab fa-github" title="GitHub"></i></a>
+          <GithubLogo href="https://github.com/zurfyx/usocial">
+            <ScreenReader>GitHub</ScreenReader>
+            <i className="fab fa-github" aria-hidden="true"></i>
           </GithubLogo>
         </Header>
         <HomeDescription>
