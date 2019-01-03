@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { createGlobalStyle } from 'styled-components';
-import { colors } from '../../utils/css';
+import { colors } from '../../theme';
 import Home from '../Home';
 
 const GlobalStyle = createGlobalStyle`
