@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import MaxWidth from './MaxWidth';
 import ExternalLink from './ExternalLink';
@@ -46,7 +46,7 @@ const GithubLogo = styled(ExternalLink)`
 
 const Headline = styled.h1`
   font-size: 2.5em;
-  max-width: 550px;
+  max-width: 540px;
 `;
 
 const SubHeadline = styled.span`
@@ -61,7 +61,23 @@ const GetStarted = styled.button`
   padding: 1.5rem 4rem;
 `;
 
+const ROTATE_PLATFORM = [
+  'Facebook',
+  'Google',
+  'Twitter',
+  'an Email',
+];
+
 function Home() {
+  const [platform, setPlatform] = useState(ROTATE_PLATFORM[0]);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      ROTATE_PLATFORM.push(ROTATE_PLATFORM.shift());
+      setPlatform(ROTATE_PLATFORM[0]);
+    }, 2.5e3);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <HomeContainer>
       <HomeContent>
@@ -74,7 +90,7 @@ function Home() {
         </Header>
         <HomeDescription>
           <Headline>Your Social Identities on the Decentralized Web</Headline>
-          <SubHeadline>Link Facebook to your uPort account</SubHeadline>
+          <SubHeadline>Link <b>{platform}</b> to your uPort account</SubHeadline>
           <GetStarted>Get started</GetStarted>
         </HomeDescription>
       </HomeContent>
