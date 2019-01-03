@@ -36,11 +36,11 @@ npm run api-serve &
 
 ## Environment variables
 
-NODE_ENV: `production` or `development`
-REACT_APP_CLIENT: Client base URL (i.e. `http://localhost:3000`)
-REACT_APP_API: API base URL (i.e. `http://localhost:3001`)
-PORT: Client port to listen to (i.e. `3000`)
-API_PORT: API port to listen to (i.e. `3001`)
+- NODE_ENV: `production` or `development`
+- REACT_APP_CLIENT: Client base URL (i.e. `http://localhost:3000`)
+- REACT_APP_API: API base URL (i.e. `http://localhost:3001`)
+- PORT: Client port to listen to (i.e. `3000`)
+- API_PORT: API port to listen to (i.e. `3001`)
 
 Environment variables can also be set through `.env` file. Client is only aware of those starting
 with `REACT_APP_`.
