@@ -2,7 +2,13 @@
 
 > The uPort Social Module
 
-## Development
+[![Build Status](https://travis-ci.org/zurfyx/usocial.svg?branch=master)](https://travis-ci.org/zurfyx/usocial)<br/>
+[Master] https://uport-social.herokuapp.com
+
+[![Build Status](https://travis-ci.org/zurfyx/usocial.svg?branch=development)](https://travis-ci.org/zurfyx/usocial)<br/>
+[Development] https://uport-social-dev.herokuapp.com
+
+## Getting started
 
 ```
 npm install
