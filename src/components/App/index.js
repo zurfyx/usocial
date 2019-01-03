@@ -1,39 +1,50 @@
 import React, { Fragment } from 'react';
-import styled, { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from 'styled-components';
+import { colors } from '../../utils/css';
+import Home from '../Home';
 
 const GlobalStyle = createGlobalStyle`
+  html {
+    font-size: 62.5%;
+  }
+
   body {
-    margin: 0;
-    padding: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-      "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-      sans-serif;
+    font-family: "Open Sans", sans-serif;
+    font-size: 2em;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    color: ${colors.textDefault};
   }
 
-  code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-      monospace;
+  @media (max-width: 400px) {
+    body {
+      font-size: 1.6em;
+    }
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: "Lato", sans-serif;
+    font-weight: 400;
+  }
+
+  button, a {
+    cursor: pointer;
+  }
+
+  a {
+    color: ${colors.textDefault};
+    text-decoration: none;
   }
 `;
 
-const AppContainer = styled.div`
-
-`;
+// const AppContainer = styled.div`
+// `;
 
 function App() {
-  const API = process.env.REACT_APP_API || 'http://localhost:3001';
-  console.info(API)
-  fetch(API + '/').then((v) => {
-    console.info(v);
-  })
   return (
     <Fragment>
       <GlobalStyle></GlobalStyle>
-      <AppContainer>
-        <h1>It works!</h1>
-      </AppContainer>
+      <Home />
     </Fragment>
   );
 }
