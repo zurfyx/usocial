@@ -7,14 +7,16 @@
     "dev": "npm-run-all --parallel client-dev api-dev",
     "client-dev": "react-scripts start",
     "api-dev": "nodemon --watch api api",
+    "client-build-serve": "npm-run-all client-build client-serve",
     "client-build": "react-scripts build",
     "client-serve": "serve -p ${PORT:-3000} -s build",
     "api-serve": "node api",
-    "all-serve": "",
+    "all-serve": "npm-run-all --parallel client-build-serve api-serve",
     "test": "react-scripts test"
   },
   "dependencies": {
     "cors": "^2.8.5",
+    "dotenv": "^6.2.0",
     "express": "^4.16.4",
     "npm-run-all": "^4.1.5",
     "react": "^16.7.0",

@@ -1,7 +1,8 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 
-const CLIENT = process.env.CLIENT || 'http://localhost:3000';
+const CLIENT = process.env.REACT_APP_CLIENT || 'http://localhost:3000';
 const PORT = process.env.API_PORT || process.env.PORT || 3001;
 
 const app = express();
