@@ -1,7 +1,8 @@
 import React, { Fragment } from 'react';
 import { createGlobalStyle } from 'styled-components';
 import { colors } from './theme';
-import Home from './home';
+// import Home from './home';
+import Dashboard from './dashboard';
 
 const GlobalStyle = createGlobalStyle`
   html {
@@ -54,7 +55,7 @@ function App() {
   return (
     <Fragment>
       <GlobalStyle></GlobalStyle>
-      <Home />
+      <Dashboard />
     </Fragment>
   );
 }
