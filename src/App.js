@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { createGlobalStyle } from 'styled-components';
-import { colors } from '../../theme';
-import Home from '../Home';
+import { colors } from './theme';
+import Home from './home';
 
 const GlobalStyle = createGlobalStyle`
   html {

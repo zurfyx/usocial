@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import MaxWidth from './MaxWidth';
-import ExternalLink from './ExternalLink';
-import ScreenReader from './ScreenReader';
+import MaxWidth from '../common/MaxWidth';
+import ExternalLink from '../common/ExternalLink';
+import ScreenReader from '../common/ScreenReader';
 
 const HomeContainer = styled.div`
   height: 100vh;
