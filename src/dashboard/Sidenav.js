@@ -5,12 +5,22 @@ import { colors, spaces } from '../theme';
 
 const SidenavContainer = styled.div`
   background-color: ${colors.backgroundDark};
+  color: ${colors.textContrast};
+  font-size: 1.6rem;
+`;
+
+const Network = styled.span`
+  display: block;
+  margin-top: 0.5rem;
+  padding: ${spaces.default};
 `;
 
 const SidenavContent = styled(NeatList)`
-  color: ${colors.textContrast};
-  font-size: 1.6rem;
-  padding: ${spaces.default};
+  padding: 0 ${spaces.default} ${spaces.default} ${spaces.default};
+`;
+
+const NetworkIcon = styled.i`
+  font-size: 0.8em;
 `;
 
 const Level0Item = styled.h4`
@@ -37,6 +47,10 @@ const Level1Item = styled.li`
 function Sidenav() {
   return (
     <SidenavContainer>
+      <Network>
+        <NetworkIcon className="fas fa-bolt" aria-hidden="true"></NetworkIcon>{' '}
+        Rinkeby
+      </Network>
       <SidenavContent>
         <Level0Item>Manage</Level0Item>
         <NeatList>

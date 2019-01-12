@@ -10,7 +10,9 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    font-family: "Open Sans", sans-serif;
+    font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
     font-size: 2em;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;

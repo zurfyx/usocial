@@ -16,4 +16,4 @@ app.use('/', (req, res) => {
   res.send('It works');
 });
 
-app.listen(PORT, () => console.info(`🗲  API running on port ${PORT}`));
+app.listen(PORT, () => console.info(`⚡ API running on port ${PORT}`));
