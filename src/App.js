@@ -1,7 +1,8 @@
 import React, { Fragment } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { createGlobalStyle } from 'styled-components';
 import { colors } from './theme';
-// import Home from './home';
+import Home from './home';
 import Dashboard from './dashboard';
 
 const GlobalStyle = createGlobalStyle`
@@ -50,15 +51,23 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-// const AppContainer = styled.div`
-// `;
-
 function App() {
   return (
     <Fragment>
       <GlobalStyle></GlobalStyle>
-      <Dashboard />
+      <Routes />
     </Fragment>
+  );
+}
+
+function Routes() {
+  return (
+    <Router>
+      <Switch>
+        <Route path="/" exact component={Home} />
+        <Route path="/dashboard" component={Dashboard} />
+      </Switch>
+    </Router>
   );
 }
 
