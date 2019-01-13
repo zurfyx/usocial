@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from 'react';
+import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
+import _ from 'lodash';
+import { connect } from '../utils/react-context';
 import MaxWidth from '../common/MaxWidth';
 import ExternalLink from '../common/ExternalLink';
 import ScreenReader from '../common/ScreenReader';
+import { UserContext } from '../UserProvider';
+import Authenticate from './Authenticate';
 
 const HomeContainer = styled.div`
   height: 100vh;
@@ -53,14 +58,6 @@ const SubHeadline = styled.span`
   margin-bottom: 3rem;
 `;
 
-const GetStarted = styled.button`
-  color: #4663ac;
-  background-color: #fff;
-  border: 0;
-  border-radius: 5px;
-  padding: 1.5rem 4rem;
-`;
-
 const ROTATE_PLATFORM = [
   'Facebook',
   'Google',
@@ -68,10 +65,14 @@ const ROTATE_PLATFORM = [
   'an Email',
 ];
 
-function Home() {
+function Home({ context, history }) {
+  if (!_.isEmpty(context.user)) {
+    history.push('/dashboard');
+  }
+
   const [platform, setPlatform] = useState(ROTATE_PLATFORM[0]);
   useEffect(() => {
-    const interval = setInterval(() => {
+    const interval = window.setInterval(() => {
       ROTATE_PLATFORM.push(ROTATE_PLATFORM.shift());
       setPlatform(ROTATE_PLATFORM[0]);
     }, 2.5e3);
@@ -91,11 +92,14 @@ function Home() {
         <HomeDescription>
           <Headline>Your Social Identities on the Decentralized Web</Headline>
           <SubHeadline>Link <b>{platform}</b> to your uPort account</SubHeadline>
-          <GetStarted>Get started</GetStarted>
+          <Authenticate></Authenticate>
         </HomeDescription>
       </HomeContent>
     </HomeContainer>
   );
 }
 
-export default Home;
+const connected = connect(UserContext.Consumer, Home);
+const routered = withRouter(connected);
+
+export default routered;

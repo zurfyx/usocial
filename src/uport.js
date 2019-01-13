@@ -5,14 +5,22 @@ const uport = new Connect('uSocial', {
   accountType: 'general',
 });
 
-const disclosure = {
-  requested: ['name', 'email'],
-  networkId: 0x4,
-  notifications: true,
-};
-const disclosureId = 'disclosureReq';
+async function requestDisclosure() {
+  const disclosure = {
+    requested: ['name', 'email'],
+    networkId: 0x4,
+    notifications: true,
+  };
+  const disclosureId = 'disclosureReq';
 
-uport.requestDisclosure(disclosure, disclosureId);
-uport.onResponse(disclosureId).then((jwt) => {
-  console.info(jwt);
-});
+  return new Promise(async (resolve) => {
+    uport.requestDisclosure(disclosure, disclosureId);
+    const data = await uport.onResponse(disclosureId);
+    const payload = data.payload;
+    resolve(payload);
+  });
+}
+
+export {
+  requestDisclosure,
+};
