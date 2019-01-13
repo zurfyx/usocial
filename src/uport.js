@@ -13,7 +13,7 @@ const connect = (() => {
 
 async function requestDisclosure() {
   const disclosure = {
-    requested: ['name', 'email'],
+    requested: ['name', 'avatar', 'email'],
     networkId: 0x4,
     notifications: true,
   };

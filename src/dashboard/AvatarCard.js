@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import { connect } from '../utils/react-context';
+import { UserContext } from '../UserProvider';
 import { spaces } from '../theme';
 
 const AvatarCardContainer = styled.div`
@@ -22,14 +24,18 @@ const ConnectionsText = styled.span`
   font-size: 1.2rem;
 `;
 
-function AvatarCard() {
+function shortName(name) {
+  return name && name.split(' ')[0];
+}
+
+function AvatarCard({ context }) {
   return (
     <AvatarCardContainer>
-      <Name>Patricia</Name>
-      <Avatar src="https://secure.gravatar.com/avatar/4c25a536476ee30f222667d3b812811a" />
+      <Name>{shortName(context.user.name)}</Name>
+      <Avatar src={context.user.avatar && context.user.avatar.uri} />
       <ConnectionsText>5 connections</ConnectionsText>
     </AvatarCardContainer>
   );
 }
 
-export default AvatarCard;
+export default connect(UserContext.Consumer, AvatarCard);
