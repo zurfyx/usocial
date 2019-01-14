@@ -7,7 +7,8 @@
     "start": "lerna run --parallel start",
     "build": "lerna run --stream build",
     "serve": "lerna run --parallel serve",
-    "test": "lerna run --stream test"
+    "test": "lerna run --stream test",
+    "heroku-postbuild": "npm run build"
   },
   "devDependencies": {
     "lerna": "^3.10.5"
