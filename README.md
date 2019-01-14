@@ -23,15 +23,8 @@ export REACT_APP_CLIENT=http://localhost:3000
 export REACT_APP_API=http://localhost:3001
 export PORT=3000
 export API_PORT=3001
-npm run all-serve
-```
-
-`npm run all-serve` is equivalent to:
-
-```
-npm run client-build
-npm run client-serve &
-npm run api-serve &
+npm run build
+npm run serve
 ```
 
 ## Environment variables
@@ -42,8 +35,9 @@ npm run api-serve &
 - PORT: Client port to listen to (i.e. `3000`)
 - API_PORT: API port to listen to (i.e. `3001`)
 
-Environment variables can also be set through `.env` file. Client is only aware of those starting
-with `REACT_APP_`.
+Client is only aware of environment variables starting with `REACT_APP_`.
+
+Environment variables can also be set through `.env` files, see `.env.example` in `packages/<name>/`. 
 
 ## License
 

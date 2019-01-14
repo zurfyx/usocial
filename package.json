@@ -1,43 +1,15 @@
 {
   "name": "usocial",
-  "version": "0.1.0",
+  "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "npm run dev",
-    "dev": "npm-run-all --parallel client-dev api-dev",
-    "client-dev": "react-scripts start",
-    "api-dev": "nodemon --watch api api",
-    "client-build-serve": "npm-run-all client-build client-serve",
-    "client-build": "react-scripts build",
-    "client-serve": "serve -p ${PORT:-3000} -s build",
-    "api-serve": "node api",
-    "all-serve": "npm-run-all --parallel client-build-serve api-serve",
-    "test": "react-scripts test"
-  },
-  "dependencies": {
-    "cors": "^2.8.5",
-    "dotenv": "^6.2.0",
-    "express": "^4.16.4",
-    "lodash": "^4.17.11",
-    "npm-run-all": "^4.1.5",
-    "react": "^16.7.0-alpha.2",
-    "react-dom": "^16.7.0-alpha.2",
-    "react-router-dom": "^4.3.1",
-    "react-scripts": "2.1.2",
-    "serve": "^10.1.1",
-    "styled-components": "^4.1.3",
-    "uport-connect": "^1.1.0-alpha.12"
+    "postinstall": "lerna bootstrap",
+    "start": "lerna run --parallel start",
+    "build": "lerna run --stream build",
+    "serve": "lerna run --parallel serve",
+    "test": "lerna run --stream test"
   },
   "devDependencies": {
-    "nodemon": "^1.18.9"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ]
+    "lerna": "^3.10.5"
+  }
 }

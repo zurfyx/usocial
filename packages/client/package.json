@@ -1,0 +1,32 @@
+{
+  "name": "usocial-client",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "serve": "serve -p ${PORT:-3000} -s build",
+    "test": "react-scripts test"
+  },
+  "dependencies": {
+    "lodash": "^4.17.11",
+    "react": "16.7.0-alpha.2",
+    "react-dom": "16.7.0-alpha.2",
+    "react-router-dom": "^4.3.1",
+    "react-scripts": "2.1.2",
+    "serve": "^10.1.1",
+    "styled-components": "^4.1.3",
+    "uport-connect": "^1.1.0-alpha.12"
+  },
+  "devDependencies": {
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+}
