@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { colors } from '../theme';
+import { colors } from '../app/theme';
 import Nav from './Nav';
 import Sidenav from './Sidenav';
-import Connections from '../connections';
+import Connections from '../connections/Connections';
 
 const DashboardContainer = styled.div`
   display: grid;

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import NeatList from '../common/NeatList';
-import { colors, spaces } from '../theme';
+import { colors, spaces } from '../app/theme';
 
 const SidenavContainer = styled.div`
   background-color: ${colors.backgroundDark};

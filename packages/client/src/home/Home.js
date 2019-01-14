@@ -6,7 +6,7 @@ import { connect } from '../utils/react-context';
 import MaxWidth from '../common/MaxWidth';
 import ExternalLink from '../common/ExternalLink';
 import ScreenReader from '../common/ScreenReader';
-import { UserContext } from '../UserProvider';
+import { UserContext } from '../app/UserProvider';
 import Authenticate from './Authenticate';
 
 const HomeContainer = styled.div`

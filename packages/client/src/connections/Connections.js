@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { spaces } from '../theme';
+import { spaces } from '../app/theme';
 
 const ConnectionsContainer = styled.div`
   padding: ${spaces.default};

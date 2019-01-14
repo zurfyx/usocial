@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { connect } from '../utils/react-context';
-import { UserContext } from '../UserProvider';
-import { spaces } from '../theme';
+import { UserContext } from '../app/UserProvider';
+import { spaces } from '../app/theme';
 
 const AvatarCardContainer = styled.div`
   display: grid;

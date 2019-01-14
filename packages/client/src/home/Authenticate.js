@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { connect } from '../utils/react-context';
-import { UserContext } from '../UserProvider';
+import { UserContext } from '../app/UserProvider';
 import { requestDisclosure } from '../uport';
 
 const GetStarted = styled.button`

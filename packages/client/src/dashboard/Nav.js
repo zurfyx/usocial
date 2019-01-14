@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { colors, spaces } from '../theme';
+import { colors, spaces } from '../app/theme';
 import DefaultButton from '../common/DefaultButton';
 import HorizontalSpacer from '../common/HorizontalSpacer';
 import AvatarCard from './AvatarCard';

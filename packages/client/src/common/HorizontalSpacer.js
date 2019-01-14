@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { colors } from '../theme';
+import { colors } from '../app/theme';
 
 const HorizontalSpacer = styled.div`
   display: block;

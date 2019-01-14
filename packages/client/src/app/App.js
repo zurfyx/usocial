@@ -1,10 +1,10 @@
 import React, { Fragment } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { createGlobalStyle } from 'styled-components';
-import { provideBundle } from './utils/react-context';
+import { provideBundle } from '../utils/react-context';
 import { colors } from './theme';
-import Home from './home';
-import Dashboard from './dashboard';
+import Home from '../home/Home';
+import Dashboard from '../dashboard/Dashboard';
 import UserProvider from './UserProvider';
 
 const GlobalStyle = createGlobalStyle`
