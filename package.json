@@ -10,7 +10,7 @@
     "test": "lerna run --stream test",
     "heroku-postbuild": "npm run build"
   },
-  "devDependencies": {
+  "dependencies": {
     "lerna": "^3.10.5"
   }
 }
