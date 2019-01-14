@@ -13,14 +13,12 @@ const NavContainer = styled.div`
 `;
 
 const ConnectButton = styled(DefaultButton)`
-  background-color: ${colors.backgroundAlternative};
   margin-left: auto;
 `;
 
 function Nav() {
   return (
     <NavContainer>
-      <span>Connections</span>
       <ConnectButton>
         Connect
       </ConnectButton>

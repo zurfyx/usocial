@@ -11,7 +11,7 @@ const AvatarCardContainer = styled.div`
 `;
 
 const Name = styled.span`
-  font-size: 1.6rem;
+  // font-size: 1.6rem;
 `;
 
 const Avatar = styled.img`

@@ -51,6 +51,7 @@ const GithubLogo = styled(ExternalLink)`
 
 const Headline = styled.h1`
   font-size: 2.5em;
+  font-weight: 400;
   max-width: 540px;
 `;
 

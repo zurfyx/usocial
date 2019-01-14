@@ -5,6 +5,7 @@ const colors = {
   backgroundHighlight: '#4663ac',
   backgroundAlternative: '#25bea0',
   separator: '#ddd',
+  boxBorder: '#ccc',
   unimportant: '#666',
 };
 

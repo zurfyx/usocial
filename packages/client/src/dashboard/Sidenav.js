@@ -6,7 +6,7 @@ import { colors, spaces } from '../app/theme';
 const SidenavContainer = styled.div`
   background-color: ${colors.backgroundDark};
   color: ${colors.textContrast};
-  font-size: 1.6rem;
+  font-size: 1.7rem;
 `;
 
 const Network = styled.span`
