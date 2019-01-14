@@ -6,10 +6,8 @@ const DefaultButton = styled.button`
   color: ${colors.textContrast};
   border: 0;
   border-radius: 5px;
-  font-size: 1.6rem;
   font-weight: 600;
-  line-height: 2rem;
-  padding: 0.85rem 2rem;
+  padding: 1rem 1.5rem;
 `;
 
 export default DefaultButton;

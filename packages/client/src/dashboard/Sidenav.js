@@ -6,7 +6,6 @@ import { colors, spaces } from '../app/theme';
 const SidenavContainer = styled.div`
   background-color: ${colors.backgroundDark};
   color: ${colors.textContrast};
-  font-size: 1.7rem;
 `;
 
 const Network = styled.span`
@@ -20,7 +19,6 @@ const SidenavContent = styled(NeatList)`
 `;
 
 const NetworkIcon = styled.i`
-  font-size: 0.8em;
 `;
 
 const Level0Item = styled.h4`
@@ -48,7 +46,7 @@ function Sidenav() {
   return (
     <SidenavContainer>
       <Network>
-        <NetworkIcon className="fas fa-bolt" aria-hidden="true"></NetworkIcon>{' '}
+        <NetworkIcon className="fab fa-connectdevelop" aria-hidden="true"></NetworkIcon>{' '}
         Rinkeby
       </Network>
       <SidenavContent>

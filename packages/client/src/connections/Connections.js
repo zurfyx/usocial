@@ -15,11 +15,12 @@ const ChooseContainer = styled.div`
 `;
 
 const SocialOption = styled(DefaultButton)`
+  font-weight: 400;
   color: #4c4c4c;
   border: 1px solid #ddd;
   border-radius: 25px;
   background-color: #fff;
-  width: 150px;
+  width: 160px;
 
   & + & {
     margin-left: 2rem;
@@ -45,7 +46,6 @@ const SectionHeader2 = styled.h2`
 `;
 
 const Instructions = styled.p`
-  font-size: 1.6rem;
   margin-bottom: 2rem;
 `;
 

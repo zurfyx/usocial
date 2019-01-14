@@ -6,9 +6,8 @@ const DefaultInput = styled.input`
   color: ${colors.textDefault};
   border: 0;
   border-radius: 5px;
-  font-size: 1.6rem;
   line-height: 2rem;
-  padding: 0.85rem 1.2rem;
+  padding: 1rem 1.5rem;
 `;
 
 export default DefaultInput;

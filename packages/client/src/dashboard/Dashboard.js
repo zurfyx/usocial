@@ -7,7 +7,7 @@ import Connections from '../connections/Connections';
 
 const DashboardContainer = styled.div`
   display: grid;
-  grid-template-columns: 210px 1fr;
+  grid-template-columns: 200px 1fr;
   grid-template-rows: 60px 1fr;
   height: 100vh;
 `;
@@ -23,7 +23,7 @@ const Logo = styled.span`
   display: inline-block;
   color: ${colors.textContrast};
   font-weight: 600;
-  font-size: 2.5rem;
+  font-size: 2.6rem;
 `;
 
 const ContentContainer = styled.div`
@@ -34,7 +34,7 @@ function Dashboard() {
   return (
     <DashboardContainer>
       <LogoContainer>
-        <Logo>usocial</Logo>
+        <Logo>uSocial</Logo>
       </LogoContainer>
       <Nav />
       <Sidenav />
