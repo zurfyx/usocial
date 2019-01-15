@@ -39,6 +39,10 @@ Client is only aware of environment variables starting with `REACT_APP_`.
 
 Environment variables can also be set through `.env` files, see `.env.example` in `packages/<name>/`. 
 
+## Thanks
+
+- [Attester](https://github.com/rhizomik/attester)
+
 ## License
 
 MIT © Gerard Rovira Sánchez
