@@ -11,6 +11,7 @@
     "heroku-postbuild": "npm run build"
   },
   "dependencies": {
-    "lerna": "^3.10.5"
+    "lerna": "^3.10.5",
+    "nodemailer": "^5.1.1"
   }
 }
