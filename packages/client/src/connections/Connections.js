@@ -6,7 +6,7 @@ import DefaultInput from '../common/DefaultInput';
 import { colors, spaces } from '../app/theme';
 
 const ConnectionsContainer = styled(MaxWidth)`
-  padding: ${spaces.default};
+  padding: ${spaces.section};
 `;
 
 const ChooseContainer = styled.div`
