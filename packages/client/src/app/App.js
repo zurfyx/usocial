@@ -40,6 +40,13 @@ const GlobalStyle = createGlobalStyle`
     color: ${colors.textDefault};
     text-decoration: none;
   }
+
+  dt {
+    color: ${colors.unimportant};
+    text-transform: uppercase;
+    font-size: 14px;
+    vertical-align: top;
+  }
 `;
 
 function App() {

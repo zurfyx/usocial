@@ -3,7 +3,11 @@ import styled from 'styled-components';
 import MaxWidth from '../common/MaxWidth';
 import DefaultButton from '../common/DefaultButton';
 import DefaultInput from '../common/DefaultInput';
-import { colors, spaces } from '../app/theme';
+import Section from '../common/Section';
+import SectionHeader1 from '../common/SectionHeader1';
+import SectionHeader2 from '../common/SectionHeader2';
+import { spaces } from '../app/theme';
+import TransparentRoundedButton from '../common/TransparentRoundedButton';
 
 const ConnectionsContainer = styled(MaxWidth)`
   padding: ${spaces.section};
@@ -14,12 +18,7 @@ const ChooseContainer = styled.div`
   text-align: center;
 `;
 
-const SocialOption = styled(DefaultButton)`
-  font-weight: 400;
-  color: #4c4c4c;
-  border: 1px solid #ddd;
-  border-radius: 25px;
-  background-color: #fff;
+const SocialOption = styled(TransparentRoundedButton)`
   width: 160px;
 
   & + & {
@@ -29,20 +28,6 @@ const SocialOption = styled(DefaultButton)`
 
 const SocialName = styled.span`
   margin-left: 1.2rem;
-`;
-
-const Section = styled.section`
-  margin-bottom: 6rem;
-`;
-
-const SectionHeader1 = styled.h1`
-  padding-bottom: 1.2rem;
-  border-bottom: 1px solid ${colors.separator};
-`;
-
-const SectionHeader2 = styled.h2`
-  padding-bottom: 1rem;
-  border-bottom: 1px solid ${colors.separator};
 `;
 
 const Instructions = styled.p`
