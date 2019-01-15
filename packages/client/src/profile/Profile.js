@@ -25,8 +25,8 @@ const BoxHeader = styled.div`
   margin-bottom: 2rem;
 
   h2 {
-    margin-top: 0.75rem;
-    margin-bottom: 0.75rem;
+    margin-top: 0.8rem;
+    margin-bottom: 0.8rem;
   }
 `;
 
@@ -57,7 +57,7 @@ function Profile({ context }) {
         </Box>
         <Box>
           <BoxHeader>
-            <h2 border={false}>uPort</h2>
+            <h2>uPort</h2>
             Your uPort identifiers, tokens, ethereum addresses, public keys and tokens. Note that
             your private keys never leave your phone wallet.
           </BoxHeader>

@@ -62,7 +62,7 @@ function Connections() {
             <SocialName>Twitter</SocialName>
           </SocialOption>
           <SocialOption>
-            <i className="fas fa-envelope-open" aria-hidden="true"></i>
+            <i className="fas fa-envelope" aria-hidden="true"></i>
             <SocialName>Email</SocialName>
           </SocialOption>
         </ChooseContainer>

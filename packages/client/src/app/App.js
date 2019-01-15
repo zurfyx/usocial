@@ -47,6 +47,10 @@ const GlobalStyle = createGlobalStyle`
     font-size: 14px;
     vertical-align: top;
   }
+
+  p {
+    margin-top: 0;
+  }
 `;
 
 function App() {
