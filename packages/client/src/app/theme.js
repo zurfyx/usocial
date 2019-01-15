@@ -1,6 +1,8 @@
 const colors = {
   textDefault: '#333',
+  textHeader: '#444',
   textContrast: '#f4f4f4',
+  textLink: '#4663ac',
   backgroundDark: '#4663ac',
   backgroundHighlight: '#4663ac',
   backgroundAlternative: '#25bea0',

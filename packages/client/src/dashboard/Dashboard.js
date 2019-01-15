@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { colors } from '../app/theme';
 import Nav from './Nav';
 import Sidenav from './Sidenav';
-import Connections from '../connections/Connections';
+import DashboardRoutes from './DashboardRoutes';
 
 const DashboardContainer = styled.div`
   display: grid;
@@ -27,7 +27,6 @@ const Logo = styled.span`
 `;
 
 const ContentContainer = styled.div`
-  background-color: #fff;
 `;
 
 function Dashboard() {
@@ -39,7 +38,7 @@ function Dashboard() {
       <Nav />
       <Sidenav />
       <ContentContainer>
-        <Connections />
+        <DashboardRoutes />
       </ContentContainer>
     </DashboardContainer>
   );

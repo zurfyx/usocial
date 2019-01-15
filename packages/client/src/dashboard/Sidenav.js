@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import NeatList from '../common/NeatList';
+import NeatLink from '../common/NeatLink';
 import { colors, spaces } from '../app/theme';
 
 const SidenavContainer = styled.div`
@@ -42,6 +43,10 @@ const Level1Item = styled.li`
   }
 `;
 
+const Level1Link = styled(NeatLink)`
+  color: ${colors.textContrast};
+`;
+
 function Sidenav() {
   return (
     <SidenavContainer>
@@ -52,7 +57,7 @@ function Sidenav() {
       <SidenavContent>
         <Level0Item>Manage</Level0Item>
         <NeatList>
-          <Level1Item>All connections</Level1Item>
+          <Level1Link to="/dashboard"><Level1Item>All connections</Level1Item></Level1Link>
           <Level1Item>Integrate</Level1Item>
         </NeatList>
         <Level0Item>Account</Level0Item>

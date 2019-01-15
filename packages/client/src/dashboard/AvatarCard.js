@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { connect } from '../utils/react-context';
 import { UserContext } from '../app/UserProvider';
 import { spaces } from '../app/theme';
+import NeatLink from '../common/NeatLink';
 
 const AvatarCardContainer = styled.div`
   display: grid;
@@ -11,11 +12,13 @@ const AvatarCardContainer = styled.div`
 `;
 
 const Name = styled.span`
-  // font-size: 1.6rem;
 `;
 
-const Avatar = styled.img`
+const AvatarLink = styled(NeatLink)`
   grid-row-end: span 2;
+`
+
+const Avatar = styled.img`
   height: 40px;
   border-radius: 999px;
 `;
@@ -31,8 +34,12 @@ function shortName(name) {
 function AvatarCard({ context }) {
   return (
     <AvatarCardContainer>
-      <Name>{shortName(context.user.name)}</Name>
-      <Avatar src={context.user.avatar && context.user.avatar.uri} />
+      <NeatLink to="/dashboard/profile">
+        <Name>{shortName(context.user.name)}</Name>
+      </NeatLink>
+      <AvatarLink to="/dashboard/profile">
+        <Avatar src={context.user.avatar && context.user.avatar.uri} />
+      </AvatarLink>
       <ConnectionsText>5 connections</ConnectionsText>
     </AvatarCardContainer>
   );
