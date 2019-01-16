@@ -41,7 +41,7 @@ function AvatarCard({ context }) {
       <AvatarLink to="/dashboard/profile">
         <Avatar src={user.avatar && user.avatar.uri} />
       </AvatarLink>
-      <ConnectionsText>{user.verified && user.verified.length} connections</ConnectionsText>
+      <ConnectionsText>{user.verified ? user.verified.length : 0} connections</ConnectionsText>
     </AvatarCardContainer>
   );
 }
