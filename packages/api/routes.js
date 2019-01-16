@@ -18,7 +18,9 @@ router.post('/callback', async (req, res) => {
   const att = await credentials.createVerification({
     sub: did,
     exp: Math.floor(new Date().getTime() / 1000) + 365 * 24 * 60 * 60,
-    claim: { '2+2': '4'},
+    claim: {
+      'uSocial': { '2+4': '6' },
+    },
   });
   console.info('att', att)
   const ok = await push(att);
