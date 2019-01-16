@@ -14,7 +14,7 @@ const HomeContainer = styled.div`
   padding: 1.5rem;
   background: #36d1dc;
   background: -webkit-linear-gradient(to top, #36d1dc, #5b86e5);
-  background: linear-gradient(to top, #36d1dc, #5b86e5);;
+  background: linear-gradient(to top, #36d1dc, #5b86e5);
 `;
 
 const HomeContent = styled(MaxWidth)`
@@ -50,12 +50,15 @@ const GithubLogo = styled(ExternalLink)`
 `;
 
 const Headline = styled.h1`
-  font-size: 2.5em;
+  color: #f4f4f4;
+  font-size: 5rem;
   font-weight: 400;
   max-width: 540px;
 `;
 
-const SubHeadline = styled.span`
+const SubHeadline = styled.h3`
+  color: #f4f4f4;
+  margin-top: 0;
   margin-bottom: 3rem;
 `;
 
