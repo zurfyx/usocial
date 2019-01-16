@@ -20,6 +20,7 @@ const GlobalStyle = createGlobalStyle`
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     color: ${colors.textDefault};
+    background-color: ${colors.background};
   }
 
   h1, h2, h3, h4, h5, h6 {

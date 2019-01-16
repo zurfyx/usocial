@@ -5,8 +5,28 @@ import NeatLink from '../common/NeatLink';
 import { colors, spaces } from '../app/theme';
 
 const SidenavContainer = styled.div`
+  position: fixed;
+  top: 0;
+  width: 200px;
   background-color: ${colors.backgroundDark};
   color: ${colors.textContrast};
+  height: 100%;
+`;
+
+const LogoContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60px;
+  width: 100%;
+  background-color: ${colors.backgroundDark};
+`;
+
+const Logo = styled.span`
+  display: inline-block;
+  color: ${colors.textContrast};
+  font-weight: 600;
+  font-size: 2.6rem;
 `;
 
 const Network = styled.span`
@@ -50,6 +70,9 @@ const Level1Link = styled(NeatLink)`
 function Sidenav() {
   return (
     <SidenavContainer>
+      <LogoContainer>
+        <Logo>uSocial</Logo>
+      </LogoContainer>
       <Network>
         <NetworkIcon className="fab fa-connectdevelop" aria-hidden="true"></NetworkIcon>{' '}
         Rinkeby

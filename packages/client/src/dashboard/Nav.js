@@ -7,10 +7,16 @@ import HorizontalSpacer from '../common/HorizontalSpacer';
 import AvatarCard from './AvatarCard';
 
 const NavContainer = styled.div`
+  position: fixed;
   display: flex;
   align-items: center;
+  top: 0;
+  left: 0;
+  height: 60px;
+  width: 100%;
+  padding: ${spaces.default} ${spaces.default} ${spaces.default} calc(200px + ${spaces.default});
   border-bottom: 1px solid ${colors.separator};
-  padding: ${spaces.default};
+  background-color: ${colors.background};
 `;
 
 const ConnectLink = styled(Link)`
