@@ -28,6 +28,11 @@ async function requestDisclosure() {
   });
 }
 
+function clearStorage() {
+  window.localStorage.removeItem('connectState');
+}
+
 export {
   requestDisclosure,
+  clearStorage,
 };

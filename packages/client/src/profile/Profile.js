@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import {  } from 'react-router-dom';
 import styled from 'styled-components';
 import { connect } from '../utils/react-context';
 import MaxWidth from '../common/MaxWidth';
@@ -7,17 +8,37 @@ import SectionHeader1 from '../common/SectionHeader1';
 import Box from '../common/Box';
 import BoxMultilineHeader from '../common/BoxMultilineHeader';
 import KeyValue from '../common/KeyValue';
-import { spaces } from '../app/theme';
+import { colors, spaces } from '../app/theme';
 import { UserContext } from '../app/UserProvider';
+import { clearStorage } from '../uport';
 
 const ProfileContainer = styled(MaxWidth)`
   padding: ${spaces.section};
 `;
 
+const Tools = styled.div`
+  display: flex;
+`;
+
+const Signout = styled.a`
+  margin-left: auto;
+  color: ${colors.textHeader};
+`;
+
+function signout(userContext) {
+  userContext.setUser({});
+  clearStorage();
+}
+
 function Profile({ context }) {
   return (
     <ProfileContainer>
       <Section>
+        <Tools>
+          <Signout onClick={() => signout(context)}>
+            Sign out  <i className="fas fa-sign-out-alt" aria-hidden="true"></i>
+          </Signout>
+        </Tools>
         <SectionHeader1 border={false}>Profile</SectionHeader1>
         <Box>
           <BoxMultilineHeader>

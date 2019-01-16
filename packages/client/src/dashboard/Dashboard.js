@@ -1,5 +1,9 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
+import _ from 'lodash';
+import { connect } from '../utils/react-context';
+import { UserContext } from '../app/UserProvider';
 import Nav from './Nav';
 import Sidenav from './Sidenav';
 import DashboardRoutes from './DashboardRoutes';
@@ -13,7 +17,11 @@ const ContentContainer = styled.div`
   margin-left: 200px;
 `;
 
-function Dashboard() {
+function Dashboard({ context, history }) {
+  if (_.isEmpty(context.user)) {
+    history.push('/');
+  }
+
   return (
     <DashboardContainer>
       <Nav />
@@ -25,4 +33,7 @@ function Dashboard() {
   );
 }
 
-export default Dashboard;
+const connected = connect(UserContext.Consumer, Dashboard);
+const routered = withRouter(connected);
+
+export default routered;
