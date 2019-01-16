@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { colors, spaces } from '../app/theme';
 import DefaultButton from '../common/DefaultButton';
@@ -12,16 +13,19 @@ const NavContainer = styled.div`
   padding: ${spaces.default};
 `;
 
-const ConnectButton = styled(DefaultButton)`
+const ConnectLink = styled(Link)`
   margin-left: auto;
+`;
+
+const ConnectButton = styled(DefaultButton)`
 `;
 
 function Nav() {
   return (
     <NavContainer>
-      <ConnectButton>
-        Connect
-      </ConnectButton>
+      <ConnectLink to="/dashboard/connect">
+        <ConnectButton>Connect</ConnectButton>
+      </ConnectLink>
       <HorizontalSpacer />
       <AvatarCard />
     </NavContainer>

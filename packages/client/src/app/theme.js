@@ -6,6 +6,7 @@ const colors = {
   backgroundDark: '#4663ac',
   backgroundHighlight: '#4663ac',
   backgroundAlternative: '#25bea0',
+  backgroundLight: '#e1f1fd',
   separator: '#ddd',
   unimportant: '#666',
 };
