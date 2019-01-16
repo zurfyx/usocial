@@ -11,6 +11,9 @@
     "heroku-postbuild": "npm run build"
   },
   "dependencies": {
+    "apollo-server": "^2.3.1",
+    "apollo-server-express": "^2.3.1",
+    "graphql": "^14.1.1",
     "lerna": "^3.10.5",
     "nodemailer": "^5.1.1"
   }
