@@ -3,7 +3,7 @@
  * localhost:3001.
  * For this reason it's lazy loaded and its dependency is listed in devDependencies.
  */
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.API_PORT || process.env.PORT || 3001;
 
 let instance;
 async function host() {

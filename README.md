@@ -31,9 +31,14 @@ npm run serve
 
 - NODE_ENV: `production` or `development`
 - REACT_APP_CLIENT: Client base URL (i.e. `http://localhost:3000`)
-- REACT_APP_API: API base URL (i.e. `http://localhost:3001`)
-- PORT: Client port to listen to (i.e. `3000`)
-- API_PORT: API port to listen to (i.e. `3001`)
+- REACT_APP_API: API base URL (i.e. `http://localhost:3001`). When not set, the client will default
+to `http://localhost:3001` and API will automatically initialize a new ngrok instance on boot to
+handle uPort callbacks.
+- PORT: Client port to listen to (i.e. `3000`). For the client, PORT > 3000
+- API_PORT: API port to listen to (i.e. `3001`. For the API, API_PORT > PORT > 3001
+- UPORT_PRIVATE_KEY: uPort signing key. Can be generated through
+`const { did, privateKey } = Credentials.createIdentity()` or
+[uPort My Appps](https://developer.uport.me/myapps)
 
 Client is only aware of environment variables starting with `REACT_APP_`.
 
