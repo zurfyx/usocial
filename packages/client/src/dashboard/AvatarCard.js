@@ -32,15 +32,16 @@ function shortName(name) {
 }
 
 function AvatarCard({ context }) {
+  const { user } = context;
   return (
     <AvatarCardContainer>
       <NeatLink to="/dashboard/profile">
-        <Name>{shortName(context.user.name)}</Name>
+        <Name>{shortName(user.name)}</Name>
       </NeatLink>
       <AvatarLink to="/dashboard/profile">
-        <Avatar src={context.user.avatar && context.user.avatar.uri} />
+        <Avatar src={user.avatar && user.avatar.uri} />
       </AvatarLink>
-      <ConnectionsText>5 connections</ConnectionsText>
+      <ConnectionsText>{user.verified && user.verified.length} connections</ConnectionsText>
     </AvatarCardContainer>
   );
 }
