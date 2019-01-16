@@ -1,6 +1,8 @@
 const express = require('express');
+const { transport, message } = require('uport-transports');
+const { Credentials } = require('uport-credentials');
 const { credentials } = require('./uport');
-const { transport } = require('uport-transports');
+const { host } = require('./utils/ngrok');
 
 const router = express.Router();
 
@@ -19,7 +21,7 @@ router.post('/callback', async (req, res) => {
     sub: did,
     exp: Math.floor(new Date().getTime() / 1000) + 365 * 24 * 60 * 60,
     claim: {
-      'uSocial': { '2+4': '6' },
+      'usocialIdentity': { 'foo': '6' },
     },
   });
   console.info('att', att)
@@ -27,6 +29,32 @@ router.post('/callback', async (req, res) => {
   console.info('ok', ok);
 
   res.send('OK');
+});
+
+
+const { did, privateKey } = Credentials.createIdentity();
+const guestCredentials = new Credentials({
+  appName: 'Guest',
+  network: 'rinkeby',
+  privateKey,
+});
+
+router.get('/guest/token', async (req, res) => {
+  const callbackUrl = process.env.REACT_APP_API || await host();
+  const requestToken = await guestCredentials.createDisclosureRequest({
+    notifications: true,
+    callbackUrl: `${callbackUrl}/guest/verifications`,
+    verified: ['usocialIdentity']
+  });
+  const uri = message.util.paramsToQueryString(message.util.messageToURI(requestToken));
+  console.info(uri)
+  res.send(uri)
+});
+
+router.post('/guest/verifications', async (req, res) => {
+  const jwt = req.body.access_token;
+  const identity = await guestCredentials.authenticateDisclosureResponse(jwt);
+  console.info(identity);
 });
 
 module.exports = router;
