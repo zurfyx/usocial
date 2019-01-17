@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
-import _ from 'lodash';
+import { isEmpty } from 'lodash-es';
 import { connect } from '../utils/react-context';
 import MaxWidth from '../common/MaxWidth';
 import ExternalLink from '../common/ExternalLink';
@@ -70,7 +70,7 @@ const ROTATE_PLATFORM = [
 ];
 
 function Home({ context, history }) {
-  if (!_.isEmpty(context.user)) {
+  if (!isEmpty(context.user)) {
     history.push('/dashboard');
   }
 

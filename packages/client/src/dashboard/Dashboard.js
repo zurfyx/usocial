@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
-import _ from 'lodash';
+import { isEmpty } from 'lodash-es';
 import { connect } from '../utils/react-context';
 import { UserContext } from '../app/UserProvider';
 import Nav from './Nav';
@@ -18,7 +18,7 @@ const ContentContainer = styled.div`
 `;
 
 function Dashboard({ context, history }) {
-  if (_.isEmpty(context.user)) {
+  if (isEmpty(context.user)) {
     history.push('/');
   }
 
