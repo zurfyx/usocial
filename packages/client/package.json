@@ -6,7 +6,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "serve": "serve -p ${PORT:-3000} -s build",
-    "test": "react-scripts test"
+    "test": "react-scripts test",
+    "analyze": "source-map-explorer build/static/js/main.*"
   },
   "dependencies": {
     "lodash": "^4.17.11",
@@ -19,6 +20,7 @@
     "uport-connect": "^1.1.0-alpha.12"
   },
   "devDependencies": {
+    "source-map-explorer": "^1.6.0"
   },
   "eslintConfig": {
     "extends": "react-app"
