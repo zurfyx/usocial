@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 import { isEmpty } from 'lodash-es';
 import { connect } from '../utils/react-context';
@@ -19,7 +19,7 @@ const ContentContainer = styled.div`
 
 function Dashboard({ context, history }) {
   if (isEmpty(context.user)) {
-    history.push('/');
+    return <Redirect to="/" />;
   }
 
   return (
@@ -33,7 +33,4 @@ function Dashboard({ context, history }) {
   );
 }
 
-const connected = connect(UserContext.Consumer, Dashboard);
-const routered = withRouter(connected);
-
-export default routered;
+export default connect(UserContext.Consumer, Dashboard);

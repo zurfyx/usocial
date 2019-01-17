@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { withRouter } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 import { isEmpty } from 'lodash-es';
 import { connect } from '../utils/react-context';
@@ -70,10 +70,6 @@ const ROTATE_PLATFORM = [
 ];
 
 function Home({ context, history }) {
-  if (!isEmpty(context.user)) {
-    history.push('/dashboard');
-  }
-
   const [platform, setPlatform] = useState(ROTATE_PLATFORM[0]);
   useEffect(() => {
     const interval = window.setInterval(() => {
@@ -82,6 +78,10 @@ function Home({ context, history }) {
     }, 2.5e3);
     return () => clearInterval(interval);
   }, []);
+
+  if (!isEmpty(context.user)) {
+    return <Redirect to="/dashboard" />;
+  }
 
   return (
     <HomeContainer>
@@ -103,7 +103,4 @@ function Home({ context, history }) {
   );
 }
 
-const connected = connect(UserContext.Consumer, Home);
-const routered = withRouter(connected);
-
-export default routered;
+export default connect(UserContext.Consumer, Home);
