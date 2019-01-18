@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import styled from 'styled-components';
-import { isEmpty } from 'lodash-es';
+import isEmpty from 'lodash/isEmpty';
 import { connect } from '../utils/react-context';
 import MaxWidth from '../common/MaxWidth';
 import ExternalLink from '../common/ExternalLink';

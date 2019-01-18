@@ -10,7 +10,7 @@
     "analyze": "source-map-explorer build/static/js/main.*"
   },
   "dependencies": {
-    "lodash-es": "^4.17.11",
+    "lodash": "^4.17.11",
     "react": "16.7.0-alpha.2",
     "react-dom": "16.7.0-alpha.2",
     "react-router-dom": "^4.3.1",
