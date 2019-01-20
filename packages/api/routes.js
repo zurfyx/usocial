@@ -6,8 +6,14 @@ const { host } = require('./utils/ngrok');
 
 const router = express.Router();
 
+const OK = (res) => res.send('OK');
+
 router.get('/', (req, res) => {
-  res.send('It works');
+  OK(res);
+});
+
+router.post('/connect/email', async (req, res) => {
+  OK(res);
 });
 
 router.post('/callback', async (req, res) => {
