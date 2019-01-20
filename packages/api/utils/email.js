@@ -1,4 +1,5 @@
 const { createTransport } = require('nodemailer');
+const inlineBase64 = require('nodemailer-plugin-inline-base64');
 
 const {
   EMAIL_HOST,
@@ -18,6 +19,7 @@ const transporter = createTransport({
     pass: EMAIL_PASSWORD,
   },
 });
+transporter.use('compile', inlineBase64({cidPrefix: 'usocial_'}));
 
 async function send(to, subject, body) {
   const options = {
