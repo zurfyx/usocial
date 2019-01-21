@@ -6,12 +6,13 @@ import SectionHeader1 from '../common/SectionHeader1';
 import { spaces } from '../app/theme';
 import TransparentRoundedButton from '../common/TransparentRoundedButton';
 import ConnectEmail from './ConnectEmail';
+import ConnectFacebook from './ConnectFacebook';
 
 const PLATFORMS = {
   facebook: {
     name: 'Facebook',
     fa: 'fab fa-facebook',
-    next: () => '',
+    next: ConnectFacebook,
   },
   google: {
     name: 'Google',

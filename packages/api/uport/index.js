@@ -27,12 +27,12 @@ async function emailDisclosureRequest(email, callbackUrl, name = '') {
   await send(email, subject, body);
 }
 
-async function pushAttestation(jwt, key, value) {
-  const userCredentials = await credentials.authenticateDisclosureResponse(jwt);
-  const did = userCredentials.did;
-  const pushToken = userCredentials.pushToken;
-  const pubEncKey = userCredentials.boxPub;
-  const push = transport.push.send(pushToken, pubEncKey)
+async function pushAttestation({
+  did,
+  pushToken,
+  publicEncKey,
+}, key, value) {
+  const push = transport.push.send(pushToken, publicEncKey)
   const attestation = await credentials.createVerification({
     sub: did,
     exp: Math.floor(new Date().getTime() / 1000) + 365 * 24 * 60 * 60,
@@ -43,8 +43,18 @@ async function pushAttestation(jwt, key, value) {
   await push(attestation);
 }
 
+async function pushAttestationFromJwt(jwt, key, value) {
+  const userCredentials = await credentials.authenticateDisclosureResponse(jwt);
+  const did = userCredentials.did;
+  const pushToken = userCredentials.pushToken;
+  const publicEncKey = userCredentials.boxPub; // boxPub seems to be equal to publicEncKey for uPort (uport-transport @ push.js L42)
+
+  await pushAttestation({ did, pushToken, publicEncKey }, key, value);
+}
+
 module.exports = {
   credentials,
   emailDisclosureRequest,
   pushAttestation,
+  pushAttestationFromJwt,
 };
