@@ -1,6 +1,8 @@
 import React, { useReducer } from 'react';
 import styled from 'styled-components';
 import isEmail from 'validator/lib/isEmail';
+import { connect } from '../utils/react-context';
+import { UserContext } from '../app/UserProvider';
 import Section from '../common/Section';
 import DefaultButton from '../common/DefaultButton';
 import DefaultInput from '../common/DefaultInput';
@@ -67,7 +69,7 @@ function reducer(state, action) {
 }
 
 
-function ConnectEmail() {
+function ConnectEmail({ context }) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   async function onSubmit(event) {
@@ -77,7 +79,7 @@ function ConnectEmail() {
     }
     dispatch({ type: 'submit' });
     
-    await connectEmail(state.email);
+    await connectEmail(state.email, context.user.name);
     dispatch({ type: 'success' });
   }
   
@@ -106,4 +108,4 @@ function ConnectEmail() {
   );
 }
 
-export default ConnectEmail;
+export default connect(UserContext.Consumer, ConnectEmail);

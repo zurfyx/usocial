@@ -14,14 +14,14 @@ router.get('/', (req, res) => {
 });
 
 router.post('/connect/email', async (req, res) => {
-  const email = req.body.email;
+  const { email, name } = req.body;
   if (!isEmail(email)) {
     return res.status(400).json({ error: 'Not a valid email address.'})
   }
 
   const baseUrl = process.env.REACT_APP_API || await host();
   const callbackUrl = `${baseUrl}/connect/email/callback?email=${email}`;
-  await emailDisclosureRequest(email, callbackUrl);
+  await emailDisclosureRequest(email, callbackUrl, name);
 
   OK(res);
 });

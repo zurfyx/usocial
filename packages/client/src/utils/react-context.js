@@ -33,7 +33,7 @@ function connect(Consumer, Component) {
   return (props) => (
     <Consumer>
       {(args) => {{
-        const { context, ...restProps } = props;
+        const { context, ...restProps } = props || {};
         const newContext = {
           ...context,
           ...args,

@@ -2,6 +2,7 @@ const { Credentials } = require('uport-credentials');
 const { transport, message } = require('uport-transports');
 const qrcode = require('qrcode');
 const { send } = require('../utils/email');
+const { qrTemplate } = require('./template');
 
 const credentials = new Credentials({
   appName: 'uSocial Identity',
@@ -9,16 +10,21 @@ const credentials = new Credentials({
   privateKey: process.env.UPORT_PRIVATE_KEY,
 });
 
-async function emailDisclosureRequest(to, callbackUrl) {
+async function emailDisclosureRequest(email, callbackUrl, name = '') {
   const requestToken = await credentials.createDisclosureRequest({
     callbackUrl,
     notifications: true,
   });
   const uri = message.util.paramsToQueryString(message.util.messageToURI(requestToken));
-  const qrImage = await qrcode.toDataURL(uri);
+  const qr = await qrcode.toDataURL(uri);
   const subject = 'uSocial email verification';
-  const body = `<img src="${qrImage}" />`
-  await send(to, subject, body);
+  const body = await qrTemplate({
+    name,
+    qr,
+    qrLink: uri,
+    clientLink: process.env.REACT_APP_CLIENT || 'http://localhost:3000',
+  })
+  await send(email, subject, body);
 }
 
 async function pushAttestation(jwt, key, value) {

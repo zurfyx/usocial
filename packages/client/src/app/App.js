@@ -38,7 +38,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   a {
-    color: ${colors.textDefault};
+    color: ${colors.textLink};
     text-decoration: none;
   }
 
