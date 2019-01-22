@@ -41,7 +41,7 @@ router.post('/connect/email/callback', async (req, res) => {
 passport.use('facebook', new FacebookStrategy({
   clientID: process.env.FACEBOOK_CLIENT_ID,
   clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
-  callbackURL: process.env.REACT_APP_CLIENT || 'http://localhost:3000/dashboard/connect',
+  callbackURL: `${process.env.REACT_APP_CLIENT || 'http://localhost:3000'}/dashboard/connect/facebook`,
 }, (accessToken, refreshToken, profile, done) => {
   done(null, profile);
 }));

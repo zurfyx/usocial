@@ -19,10 +19,10 @@ npm start
 
 ```
 export NODE_ENV=production
-export REACT_APP_CLIENT=http://localhost:3000
-export REACT_APP_API=http://localhost:3001
 export PORT=3000
 export API_PORT=3001
+export REACT_APP_CLIENT=http://localhost:3000
+export REACT_APP_API=http://localhost:3001
 npm run build
 npm run serve
 ```
