@@ -4,6 +4,7 @@ const cors = require('cors');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 require('./utils/email');
+require('./passport');
 const routes = require('./routes');
 
 const CLIENT = process.env.REACT_APP_CLIENT || 'http://localhost:3000';
