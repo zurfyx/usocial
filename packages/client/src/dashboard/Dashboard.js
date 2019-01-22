@@ -17,8 +17,8 @@ const ContentContainer = styled.div`
   margin-left: 200px;
 `;
 
-function Dashboard({ context, history }) {
-  if (isEmpty(context.user)) {
+function Dashboard({ user }) {
+  if (isEmpty(user.user)) {
     return <Redirect to="/" />;
   }
 
@@ -33,4 +33,4 @@ function Dashboard({ context, history }) {
   );
 }
 
-export default connect(UserContext.Consumer, Dashboard);
+export default connect('user', UserContext.Consumer, Dashboard);

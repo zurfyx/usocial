@@ -13,13 +13,13 @@ const ConnectionsContainer = styled(MaxWidth)`
   padding: ${spaces.default};
 `;
 
-function Connections({ context }) {
+function Connections({ user }) {
   return (
     <ConnectionsContainer>
       <Section>
         <SectionHeader1 border={false}>Connections</SectionHeader1>
         <BoxList>
-          {context.user.verified && context.user.verified.map((verifiedItem) => (
+          {user.user.verified && user.user.verified.map((verifiedItem) => (
             <ConnectionsItem key={verifiedItem.jwt} verifiedItem={verifiedItem} />
           ))}
         </BoxList>
@@ -28,4 +28,4 @@ function Connections({ context }) {
   );
 }
 
-export default connect(UserContext.Consumer, Connections);
+export default connect('user', UserContext.Consumer, Connections);

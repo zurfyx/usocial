@@ -25,17 +25,18 @@ const Signout = styled.a`
   color: ${colors.textHeader};
 `;
 
-function signout(userContext) {
-  userContext.setUser({});
-  clearStorage();
-}
+function Profile({ user }) {
 
-function Profile({ context }) {
+  function signout() {
+    user.setUser({});
+    clearStorage();
+  }
+
   return (
     <ProfileContainer>
       <Section>
         <Tools>
-          <Signout onClick={() => signout(context)}>
+          <Signout onClick={() => signout(user)}>
             Sign out  <i className="fas fa-sign-out-alt" aria-hidden="true"></i>
           </Signout>
         </Tools>
@@ -47,11 +48,11 @@ function Profile({ context }) {
           </BoxMultilineHeader>
           <KeyValue>
             <dt>Name</dt>
-            <dd>{context.user.name}</dd>
+            <dd>{user.user.name}</dd>
             <dt>Email</dt>
-            <dd>{context.user.email}</dd>
+            <dd>{user.user.email}</dd>
             <dt>Avatar</dt>
-            <dd>{context.user.avatar && <AvatarDetail uri={context.user.avatar.uri} />}</dd>
+            <dd>{user.user.avatar && <AvatarDetail uri={user.user.avatar.uri} />}</dd>
           </KeyValue>
         </Box>
         <Box>
@@ -62,17 +63,17 @@ function Profile({ context }) {
           </BoxMultilineHeader>
           <KeyValue>
             <dt>Address</dt>
-            <dd>{context.user.address}</dd>
+            <dd>{user.user.address}</dd>
             <dt>BoxPub</dt>
-            <dd>{context.user.boxPub}</dd>
+            <dd>{user.user.boxPub}</dd>
             <dt>DID</dt>
-            <dd>{context.user.did}</dd>
+            <dd>{user.user.did}</dd>
             <dt>MNID</dt>
-            <dd>{context.user.mnid}</dd>
+            <dd>{user.user.mnid}</dd>
             <dt>PublicEncKey</dt>
-            <dd>{context.user.publicEncKey}</dd>
+            <dd>{user.user.publicEncKey}</dd>
             <dt>PushToken</dt>
-            <dd>{context.user.pushToken}</dd>
+            <dd>{user.user.pushToken}</dd>
           </KeyValue>
         </Box>
       </Section>
@@ -96,4 +97,4 @@ function AvatarDetail({ uri }) {
   );
 }
 
-export default connect(UserContext.Consumer, Profile);
+export default connect('user', UserContext.Consumer, Profile);

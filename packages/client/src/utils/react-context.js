@@ -24,26 +24,21 @@ function provideBundle(...components) {
 /**
  * Pass consumer arguments as component props.
  * Use:
- * function MyComponent({ context }) {
- *   return <div>{context.color}</div>
+ * function MyComponent({ theme }) {
+ *   return <div>{theme.color}</div>
  * }
- * export default connect(ThemeProvider.Consumer, MyComponent)
+ * export default connect('theme', ThemeProvider.Consumer, MyComponent)
  */
-function connect(Consumer, Component) {
-  return (props) => (
+function connect(propName, Consumer, Component) {
+  return (props = {}) => (
     <Consumer>
-      {(args) => {{
-        const { context, ...restProps } = props || {};
-        const newContext = {
-          ...context,
-          ...args,
-        };
+      {(args) => {
         const newProps = {
-          context: newContext,
-          ...restProps,
+          ...props,
+          [propName]: args,
         };
-        return <Component {...newProps}></Component>;
-      }}}
+        return <Component {...newProps} ></Component>;
+      }}
     </Consumer>
   );
 }

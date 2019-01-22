@@ -12,17 +12,18 @@ const GetStarted = styled.button`
   padding: 1.5rem 4rem;
 `;
 
-async function authenticate(setUser) {
-  const data = await requestDisclosure();
-  setUser(data);
-}
+function Authenticate({ user }) {
+  
+  async function authenticate() {
+    const data = await requestDisclosure();
+    user.setUser(data);
+  }
 
-function Authenticate({ context }) {
   return (
-    <GetStarted onClick={() => authenticate(context.setUser)}>
+    <GetStarted onClick={() => authenticate()}>
       Get started
     </GetStarted>
   );
 }
 
-export default connect(UserContext.Consumer, Authenticate);
+export default connect('user', UserContext.Consumer, Authenticate);

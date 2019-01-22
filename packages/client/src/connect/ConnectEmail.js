@@ -69,7 +69,7 @@ function reducer(state, action) {
 }
 
 
-function ConnectEmail({ context }) {
+function ConnectEmail({ user }) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   async function onSubmit(event) {
@@ -79,7 +79,7 @@ function ConnectEmail({ context }) {
     }
     dispatch({ type: 'submit' });
     
-    await connectEmail(state.email, context.user.name);
+    await connectEmail(state.email, user.user.name);
     dispatch({ type: 'success' });
   }
   
@@ -108,4 +108,4 @@ function ConnectEmail({ context }) {
   );
 }
 
-export default connect(UserContext.Consumer, ConnectEmail);
+export default connect('user', UserContext.Consumer, ConnectEmail);

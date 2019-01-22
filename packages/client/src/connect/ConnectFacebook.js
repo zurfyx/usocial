@@ -20,11 +20,11 @@ async function huh() {
   await fetch('http://localhost:3001/')
 }
 
-function ConnectFacebook({ context }) {
+function ConnectFacebook({ user }) {
   const pushData = {
-    did: context.user.did,
-    pushToken: context.user.pushToken,
-    publicEncKey: context.user.publicEncKey,
+    did: user.user.did,
+    pushToken: user.user.pushToken,
+    publicEncKey: user.user.publicEncKey,
   };
 
   return (
@@ -37,4 +37,4 @@ function ConnectFacebook({ context }) {
   );
 }
 
-export default connect(UserContext.Consumer, ConnectFacebook);
+export default connect('user', UserContext.Consumer, ConnectFacebook);

@@ -69,7 +69,7 @@ const ROTATE_PLATFORM = [
   'an Email',
 ];
 
-function Home({ context, history }) {
+function Home({ user }) {
   const [platform, setPlatform] = useState(ROTATE_PLATFORM[0]);
   useEffect(() => {
     const interval = window.setInterval(() => {
@@ -79,7 +79,7 @@ function Home({ context, history }) {
     return () => clearInterval(interval);
   }, []);
 
-  if (!isEmpty(context.user)) {
+  if (!isEmpty(user.user)) {
     return <Redirect to="/dashboard" />;
   }
 
@@ -103,4 +103,4 @@ function Home({ context, history }) {
   );
 }
 
-export default connect(UserContext.Consumer, Home);
+export default connect('user', UserContext.Consumer, Home);

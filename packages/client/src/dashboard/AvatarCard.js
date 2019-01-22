@@ -31,19 +31,18 @@ function shortName(name) {
   return name && name.split(' ')[0];
 }
 
-function AvatarCard({ context }) {
-  const { user } = context;
+function AvatarCard({ user }) {
   return (
     <AvatarCardContainer>
       <NeatLink to="/dashboard/profile">
-        <Name>{shortName(user.name)}</Name>
+        <Name>{shortName(user.user.name)}</Name>
       </NeatLink>
       <AvatarLink to="/dashboard/profile">
-        <Avatar src={user.avatar && user.avatar.uri} />
+        <Avatar src={user.user.avatar && user.user.avatar.uri} />
       </AvatarLink>
-      <ConnectionsText>{user.verified ? user.verified.length : 0} connections</ConnectionsText>
+      <ConnectionsText>{user.user.verified ? user.user.verified.length : 0} connections</ConnectionsText>
     </AvatarCardContainer>
   );
 }
 
-export default connect(UserContext.Consumer, AvatarCard);
+export default connect('user', UserContext.Consumer, AvatarCard);
