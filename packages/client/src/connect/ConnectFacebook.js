@@ -96,8 +96,8 @@ function CallbackView({ user, facebookCode, facebookState }) {
 
   return (
     <Section>
-      <SectionHeader2>We're attesting your Facebook information</SectionHeader2>
-      {!success && 'Hold tight! Your identity with Facebook is being verified...'}
+      <SectionHeader2>We're attesting your Facebook identity</SectionHeader2>
+      {!success && 'Hold tight! Your Facebook identity is being verified...'}
       {success && 'Success! Your uPort attestation should show up on your mobile uPort app in few seconds.'}
     </Section>
   );
