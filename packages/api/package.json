@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon --watch .",
-    "serve": "NODE_ENV=production node .",
+    "start": "nodemon --watch . src/",
+    "serve": "NODE_ENV=production node src/",
     "test": "echo"
   },
   "dependencies": {
