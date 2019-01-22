@@ -5,6 +5,8 @@ import { provideBundle } from '../utils/react-context';
 import { colors } from './theme';
 import Home from '../home/Home';
 import Dashboard from '../dashboard/Dashboard';
+import Privacy from '../legal/privacy';
+import Terms from '../legal/terms';
 import UserProvider from './UserProvider';
 
 const GlobalStyle = createGlobalStyle`
@@ -73,6 +75,8 @@ function Routes() {
       <Switch>
         <Route path="/" exact component={Home} />
         <Route path="/dashboard" component={Dashboard} />
+        <Route path="/privacy" component={Privacy} />
+        <Route path="/terms" component={Terms} />
       </Switch>
     </Router>
   );
