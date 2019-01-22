@@ -25,7 +25,7 @@ function validateState(state) {
 function requestCode() {
   const state = generateState();
   const facebookUrl = new URL('https://www.facebook.com/v3.2/dialog/oauth');
-  facebookUrl.searchParams.set('client_id', 369638680499641);
+  facebookUrl.searchParams.set('client_id', process.env.REACT_APP_FACEBOOK_CLIENT_ID);
   facebookUrl.searchParams.set('redirect_uri', `${process.env.REACT_APP_CLIENT || 'http://localhost:3000'}/dashboard/connect/facebook`);
   facebookUrl.searchParams.set('state', state);
   
