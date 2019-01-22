@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { Route, Switch, withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import MaxWidth from '../common/MaxWidth';
 import Section from '../common/Section';
@@ -52,25 +53,27 @@ const SocialName = styled.span`
   margin-left: 1.2rem;
 `;
 
-function Connections() {
-  const [option, setOption] = useState(null);
-
+function Connections({ history }) {
   return (
     <ConnectionsContainer>
       <Section>
         <SectionHeader1>Connect</SectionHeader1>
         <ChooseContainer>
           {Object.entries(PLATFORMS).map(([key, value]) => (
-            <SocialOption key={key} onClick={() => setOption(key)}>
+            <SocialOption key={key} onClick={() => history.push(`/dashboard/connect/${key}`)}>
               <i className={value.fa} aria-hidden="true" />
               <SocialName>{value.name}</SocialName>
             </SocialOption>
           ))}
         </ChooseContainer>
       </Section>
-      {option && PLATFORMS[option].next()}
+      <Switch>
+        {Object.entries(PLATFORMS).map(([key, value]) => (
+          <Route key={key} path={`/dashboard/connect/${key}`} exact component={value.next}></Route>
+        ))}
+      </Switch>
     </ConnectionsContainer>
   );
 }
 
-export default Connections;
+export default withRouter(Connections);

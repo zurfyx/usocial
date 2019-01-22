@@ -8,7 +8,7 @@ function DashboardRoutes() {
   return (
     <Switch>
       <Route exact path="/dashboard" component={Connections} />
-      <Route exact path="/dashboard/connect" component={Connect} />
+      <Route path="/dashboard/connect" component={Connect} />
       <Route path="/dashboard/profile" component={Profile} />
     </Switch>
   );
