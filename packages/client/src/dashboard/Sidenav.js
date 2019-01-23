@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import NeatList from '../common/NeatList';
-import NeatLink from '../common/NeatLink';
+import NeatNavLink from '../common/NeatNavLink';
 import { colors, spaces } from '../app/theme';
 
 const SidenavContainer = styled.div`
@@ -55,16 +55,17 @@ const Level0Item = styled.h4`
 
 const Level1Item = styled.li`
   padding: 0.5rem 1rem;
-
-  &:hover {
-    background-color: #c1d8f0;
-    border-radius: 5px;
-    color: #333;
-  }
 `;
 
-const Level1Link = styled(NeatLink)`
+const Level1Link = styled(NeatNavLink)`
+  display: block;
   color: ${colors.textContrast};
+  border-radius: 5px;
+
+  &.active {
+    color: #333;
+    background-color: #b5d2f1;
+  }
 `;
 
 function Sidenav() {
@@ -80,12 +81,12 @@ function Sidenav() {
       <SidenavContent>
         <Level0Item>Manage</Level0Item>
         <NeatList>
-          <Level1Link to="/dashboard"><Level1Item>All connections</Level1Item></Level1Link>
+          <Level1Link to="/dashboard" exact={true} activeClassName="active"><Level1Item>All connections</Level1Item></Level1Link>
           <Level1Item>Integrate</Level1Item>
         </NeatList>
         <Level0Item>Account</Level0Item>
         <NeatList>
-          <Level1Item>Profile</Level1Item>
+          <Level1Link to="/dashboard/profile" activeClassName="active"><Level1Item>Profile</Level1Item></Level1Link>
           <Level1Item>Network</Level1Item>
         </NeatList>
       </SidenavContent>
