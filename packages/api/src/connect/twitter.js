@@ -5,6 +5,7 @@ const fetch = require('node-fetch');
 const { OAuth } = require('oauth');
 const { ok, err400 } = require('../utils/router');
 const { pushAttestation } = require('../uport');
+const crypt = require('../cryptr');
 
 const oauth = new OAuth(
   'https://api.twitter.com/oauth/request_token',
@@ -17,6 +18,7 @@ const oauth = new OAuth(
 );
 
 let requestStored;
+let correctStored;
 let secretStored; // TODO
 
 async function twitterRequestToken(req, res) {
@@ -27,7 +29,8 @@ async function twitterRequestToken(req, res) {
     }
     
     requestStored = oauthToken; // No need to store, the client will already carry an identical copy of it
-    secretStored = oauthTokenSecret;
+    secretStored = correctStored = oauthTokenSecret;
+    secretStored = crypt.encrypt(secretStored);
     res.json({ oauthToken });
       // req.session.oauthRequestToken = oauthToken;
       // req.session.oauthRequestTokenSecret = oauthTokenSecret;
@@ -56,9 +59,14 @@ async function connectTwitter(req, res, next) {
   } = req.query;
   const pushData = { did, pushToken, publicEncKey };
   console.info(oauthToken)
-  console.info(requestStored)
+  console.info('match')
+  console.info(correctStored)
+  // console.info(secretStored)
+  oauthTokenSecret = crypt.decrypt(secretStored)
+  console.info(oauthTokenSecret)
+  console.info('/match')
 
-  oauth.getOAuthAccessToken(oauthToken, secretStored, oauthVerifier, function(error, oauthAccessToken, oauthAccessTokenSecret, results) {
+  oauth.getOAuthAccessToken(oauthToken, oauthTokenSecret, oauthVerifier, function(error, oauthAccessToken, oauthAccessTokenSecret, results) {
     if (error) {
       res.send("Error getting OAuth access token : " + util.inspect(error) + "["+oauthAccessToken+"]"+ "["+oauthAccessTokenSecret+"]"+ "["+util.inspect(results)+"]", 500);
     } else {
