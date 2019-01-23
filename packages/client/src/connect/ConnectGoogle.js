@@ -29,7 +29,7 @@ async function handleCallback(googleCode, googleState, uportPush) {
   return connectGoogle(googleCode, uportPush);
 }
 
-function ConnectGoogle({ location, history, user }) {
+function ConnectGoogle({ location, user }) {
   const urlParams = new URLSearchParams(location.search);
   const urlCode = urlParams.get('code');
   const urlState = urlParams.get('state');

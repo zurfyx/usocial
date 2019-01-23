@@ -1,6 +1,5 @@
 require('dotenv').config();
 const express = require('express');
-const session = require('express-session');
 const cors = require('cors');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
@@ -25,7 +24,6 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 
-// app.use(session({ secret: 'melody hensley is my spirit animal' }));
 app.use('/', routes);
 
 app.listen(PORT, () => console.info(`⚡ API running on port ${PORT}`));

@@ -27,7 +27,7 @@ async function handleCallback(facebookCode, facebookState, uportPush) {
   return connectFacebook(facebookCode, uportPush);
 }
 
-function ConnectFacebook({ location, history, user }) {
+function ConnectFacebook({ location, user }) {
   const urlParams = new URLSearchParams(location.search);
   const urlCode = urlParams.get('code');
   const urlState = urlParams.get('state');

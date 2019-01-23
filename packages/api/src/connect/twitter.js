@@ -1,9 +1,7 @@
 // Twitter flow with oauth https://gist.github.com/joshj/1933640
 
-const passport = require('passport');
-const fetch = require('node-fetch');
 const { OAuth } = require('oauth');
-const { ok, err400 } = require('../utils/router');
+const { ok } = require('../utils/router');
 const oauthActions = require('../utils/oauth');
 const { pushAttestation } = require('../uport');
 const crypt = require('../cryptr');

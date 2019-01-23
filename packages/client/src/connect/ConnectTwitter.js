@@ -14,7 +14,7 @@ async function requestToken() {
   
   // Twitter returns the same oauth token back. It can act as CSRF, just like state in OAuth2
   window.sessionStorage.setItem('oauthToken', oauthToken);
-  // Store encryptedSecretStore for later; we have to return it back to the server
+  // Store encryptedSecretStore for later; we have to return it back to the API
   window.sessionStorage.setItem('encryptedSecretStore', encryptedSecretStore);
 
   const twitterUrl = new URL('https://api.twitter.com/oauth/authorize');
@@ -63,7 +63,12 @@ function DefaultView() {
       <Instructions>
         Your personal information is never stored on our attestation servers.
       </Instructions>
-      {!isConnecting && <DefaultButton type="submit" onClick={() => (setIsConnecting(true), requestToken())}>Connect</DefaultButton>}
+      {!isConnecting && 
+        <DefaultButton
+          type="submit"
+          onClick={() => { setIsConnecting(true); requestToken(); }}>
+          Connect
+        </DefaultButton>}
       {isConnecting && <span>Contacting Twitter...</span>}
     </Section>
   );
