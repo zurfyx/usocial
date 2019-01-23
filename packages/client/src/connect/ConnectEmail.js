@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import isEmail from 'validator/lib/isEmail';
 import { connect } from '../utils/react-context';
 import { UserContext } from '../app/UserProvider';
+import Loading from '../common/Loading';
 import Section from '../common/Section';
 import DefaultButton from '../common/DefaultButton';
 import DefaultInput from '../common/DefaultInput';
@@ -101,6 +102,7 @@ function ConnectEmail({ user }) {
           <DefaultButton type="submit">Connect</DefaultButton>
         </fieldset>
       </EmailForm>
+      {state.isSubmitting && <Loading text="Submitting" />}
       {state.hasSubmitted && !state.error && (
         <span>Check your email address to complete the connection.</span>
       )}

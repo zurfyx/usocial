@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { connect } from '../utils/react-context';
 import { generateState, validateState, clearQueryParams } from '../utils/oauth2';
 import { UserContext } from '../app/UserProvider';
+import Loading from '../common/Loading';
 import Section from '../common/Section';
 import DefaultButton from '../common/DefaultButton';
 import SectionHeader2 from '../common/SectionHeader2';
@@ -81,7 +82,7 @@ function CallbackView({ user, googleCode, googleState }) {
   return (
     <Section>
       <SectionHeader2>We're attesting your Google identity</SectionHeader2>
-      {!success && 'Hold tight! Your Google identity is being verified...'}
+      {!success && <Loading text="Hold tight! Your Google identity is being verified" />}
       {success && 'Success! Your uPort attestation should show up on your mobile uPort app in few seconds.'}
     </Section>
   );

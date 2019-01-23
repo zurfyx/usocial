@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { connect } from '../utils/react-context';
 import { clearQueryParams } from '../utils/oauth2';
 import { UserContext } from '../app/UserProvider';
+import Loading from '../common/Loading';
 import Section from '../common/Section';
 import DefaultButton from '../common/DefaultButton';
 import SectionHeader2 from '../common/SectionHeader2';
@@ -69,7 +70,7 @@ function DefaultView() {
           onClick={() => { setIsConnecting(true); requestToken(); }}>
           Connect
         </DefaultButton>}
-      {isConnecting && <span>Contacting Twitter...</span>}
+      {isConnecting && <Loading text="Contacting Twitter" />}
     </Section>
   );
 }
@@ -93,7 +94,7 @@ function CallbackView({ user, twitterOauthToken, twitterOauthVerifier }) {
   return (
     <Section>
       <SectionHeader2>We're attesting your Twitter identity</SectionHeader2>
-      {!success && 'Hold tight! Your Twitter identity is being verified...'}
+      {!success && <Loading text="Hold tight! Your Twitter identity is being verified" />}
       {success && 'Success! Your uPort attestation should show up on your mobile uPort app in few seconds.'}
     </Section>
   );
