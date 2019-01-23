@@ -8,6 +8,7 @@ import { spaces } from '../app/theme';
 import TransparentRoundedButton from '../common/TransparentRoundedButton';
 import ConnectFacebook from './ConnectFacebook';
 import ConnectGoogle from './ConnectGoogle';
+import ConnectTwitter from './ConnectTwitter';
 import ConnectEmail from './ConnectEmail';
 
 const PLATFORMS = {
@@ -24,7 +25,7 @@ const PLATFORMS = {
   twitter: {
     name: 'Twitter',
     fa: 'fab fa-twitter',
-    next: () => '',
+    next: ConnectTwitter,
   },
   email: {
     name: 'Email',

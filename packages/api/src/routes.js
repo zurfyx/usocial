@@ -1,6 +1,7 @@
 const express = require('express');
 const { connectFacebook } = require('./connect/facebook');
 const { connectGoogle } = require('./connect/google');
+const { twitterRequestToken, connectTwitter } = require('./connect/twitter');
 const { connectEmail, connectEmailCallback } = require('./connect/email');
 const { guestToken, guestVerifications } = require('./guest');
 
@@ -12,6 +13,8 @@ router.get('/', (req, res) => {
 
 router.get('/connect/facebook', connectFacebook);
 router.get('/connect/google', connectGoogle);
+router.get('/connect/twitter/oauth-token', twitterRequestToken);
+router.get('/connect/twitter', connectTwitter);
 router.post('/connect/email', connectEmail);
 router.post('/connect/email/callback', connectEmailCallback);
 
