@@ -6,8 +6,9 @@ import Section from '../common/Section';
 import SectionHeader1 from '../common/SectionHeader1';
 import { spaces } from '../app/theme';
 import TransparentRoundedButton from '../common/TransparentRoundedButton';
-import ConnectEmail from './ConnectEmail';
 import ConnectFacebook from './ConnectFacebook';
+import ConnectGoogle from './ConnectGoogle';
+import ConnectEmail from './ConnectEmail';
 
 const PLATFORMS = {
   facebook: {
@@ -18,7 +19,7 @@ const PLATFORMS = {
   google: {
     name: 'Google',
     fa: 'fab fa-google',
-    next: () => '',
+    next: ConnectGoogle,
   },
   twitter: {
     name: 'Twitter',
