@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import { connect } from '../utils/react-context';
-import { generateState, validateState, clearQueryParams } from '../utils/oauth';
+import { generateState, validateState, clearQueryParams } from '../utils/oauth2';
 import { UserContext } from '../app/UserProvider';
 import Section from '../common/Section';
 import DefaultButton from '../common/DefaultButton';

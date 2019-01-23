@@ -29,15 +29,16 @@ function connectGoogle(googleCode, uportPush) {
 
 async function connectTwitterOauthToken() {
   const request = await fetchGet('/connect/twitter/oauth-token');
-  const json = await request.json();
-  return json.oauthToken;
+  const { oauthToken, encryptedSecretStore } = await request.json();
+  return { oauthToken, encryptedSecretStore };
 }
 
-function connectTwitter(twitterCode, twitterVerifier, uportPush) {
+function connectTwitter(twitterCode, twitterVerifier, encryptedSecretStore, uportPush) {
   const path = '/connect/twitter';
   const params = new URLSearchParams({
     oauth_token: twitterCode,
     oauth_verifier: twitterVerifier,
+    encryptedSecretStore,
     ...uportPush,
   });
   const fullPath = `${path}?${params.toString()}`;

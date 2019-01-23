@@ -19,37 +19,14 @@ const oauth = new OAuth(
 );
 const { get, getOAuthRequestToken, getOAuthAccessToken } = oauthActions(oauth);
 
-let requestStored;
-let correctStored;
-let secretStored; // TODO
-
 async function twitterRequestToken(req, res) {
   const [oauthToken, oauthTokenSecret, results] = await getOAuthRequestToken();
-  // oauth.getOAuthRequestToken(function(error, oauthToken, oauthTokenSecret, results){
-  //   if (error) {
-  //     err400('Can\'t retrieve Twitter request token');
-  //     return;
-  //   }
-    console.info(results)
-    requestStored = oauthToken; // No need to store, the client will already carry an identical copy of it
-    secretStored = correctStored = oauthTokenSecret;
-    secretStored = crypt.encrypt(secretStored);
-    res.json({ oauthToken });
-      // req.session.oauthRequestToken = oauthToken;
-      // req.session.oauthRequestTokenSecret = oauthTokenSecret;
-      // console.info(oauthToken)
-      // console.info(oauthTokenSecret)
-      // console.info(results)
-      // res.redirect("https://api.twitter.com/oauth/authorize?oauth_token="+oauthToken);      
-  // }); 
-  // const token = await fetch('https://api.twitter.com/oauth/request_token', {
-  //   method: 'POST',
-  //   body: JSON.stringify({
-  //     oauth_callback: `${process.env.REACT_APP_CLIENT || 'http://localhost:3000'}/dashboard/connect/twitter`,
-  //   }),
-  // });
-  // console.info(token)
-  // res.send(token);
+
+  // oauthTokenSecret should be stored on the server. To prevent the server from having session,
+  // hence 100% stateless, we'll be sending them our private token encrypted, which we'll decrypt
+  // on the callback.
+  const encryptedSecretStore = crypt.encrypt(oauthTokenSecret);
+  res.json({ oauthToken, encryptedSecretStore });
 }
 
 async function connectTwitter(req, res, next) {
@@ -57,17 +34,12 @@ async function connectTwitter(req, res, next) {
     did,
     pushToken,
     publicEncKey,
+    encryptedSecretStore,
     oauth_token: oauthToken,
     oauth_verifier: oauthVerifier,
   } = req.query;
   const pushData = { did, pushToken, publicEncKey };
-  console.info(oauthToken)
-  console.info('match')
-  console.info(correctStored)
-  // console.info(secretStored)
-  oauthTokenSecret = crypt.decrypt(secretStored)
-  console.info(oauthTokenSecret)
-  console.info('/match')
+  const oauthTokenSecret = crypt.decrypt(encryptedSecretStore);
 
   const [oauthAccessToken, oauthAccessTokenSecret, results] = await getOAuthAccessToken(oauthToken, oauthTokenSecret, oauthVerifier);
   const [data, response] = await get("https://api.twitter.com/1.1/account/verify_credentials.json", oauthAccessToken, oauthAccessTokenSecret);

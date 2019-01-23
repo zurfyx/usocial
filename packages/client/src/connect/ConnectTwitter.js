@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import { connect } from '../utils/react-context';
-import { generateState, validateState, clearQueryParams } from '../utils/oauth';
+import { clearQueryParams } from '../utils/oauth2';
 import { UserContext } from '../app/UserProvider';
 import Section from '../common/Section';
 import DefaultButton from '../common/DefaultButton';
@@ -10,8 +10,13 @@ import SectionHeader2 from '../common/SectionHeader2';
 import { connectTwitterOauthToken, connectTwitter } from '../api/connect';
 
 async function requestToken() {
-  const oauthToken = await connectTwitterOauthToken();
-  console.info(oauthToken)
+  const { oauthToken, encryptedSecretStore } = await connectTwitterOauthToken();
+  
+  // Twitter returns the same oauth token back. It can act as CSRF, just like state in OAuth2
+  window.sessionStorage.setItem('oauthToken', oauthToken);
+  // Store encryptedSecretStore for later; we have to return it back to the server
+  window.sessionStorage.setItem('encryptedSecretStore', encryptedSecretStore);
+
   const twitterUrl = new URL('https://api.twitter.com/oauth/authorize');
   twitterUrl.searchParams.set('oauth_token', oauthToken);
   
@@ -19,7 +24,13 @@ async function requestToken() {
 }
 
 async function handleCallback(twitterOauthToken, twitterOauthVerifier, uportPush) {
-  return connectTwitter(twitterOauthToken, twitterOauthVerifier, uportPush);
+  const storedOauthToken = window.sessionStorage.getItem('oauthToken');
+  if (!storedOauthToken || storedOauthToken !== twitterOauthToken) {
+    throw new Error('Requested token doesn\'t match Twitter\'s');
+  }
+
+  const encryptedSecretStore = window.sessionStorage.getItem('encryptedSecretStore');
+  return connectTwitter(twitterOauthToken, twitterOauthVerifier, encryptedSecretStore, uportPush);
 }
 
 function ConnectTwitter({ location, user }) {
