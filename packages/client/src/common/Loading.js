@@ -8,7 +8,7 @@ function Loading({ text }) {
       setDotCount((dotCount + 1) % 4);
     }, 250);
     return () => window.clearInterval(interval);
-  }, []);
+  });
 
   return <Fragment>{text}{'.'.repeat(dotCount)}</Fragment>
 }
