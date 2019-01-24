@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { createGlobalStyle } from 'styled-components';
 import { provideBundle } from '../utils/react-context';
+import ScrollToTop from '../common/ScrollToTop';
 import { colors } from './theme';
 import Home from '../home/Home';
 import Dashboard from '../dashboard/Dashboard';
@@ -72,12 +73,15 @@ const Providers = provideBundle(UserProvider);
 function Routes() {
   return (
     <Router>
-      <Switch>
-        <Route path="/" exact component={Home} />
-        <Route path="/dashboard" component={Dashboard} />
-        <Route path="/privacy" component={Privacy} />
-        <Route path="/terms" component={Terms} />
-      </Switch>
+      <Fragment>
+        <ScrollToTop />
+        <Switch>
+            <Route path="/" exact component={Home} />
+            <Route path="/dashboard" component={Dashboard} />
+            <Route path="/privacy" component={Privacy} />
+            <Route path="/terms" component={Terms} />
+        </Switch>
+      </Fragment>
     </Router>
   );
 }
