@@ -18,9 +18,8 @@ async function connectEmail(req, res) {
 
 async function connectEmailCallback(req, res) {
   const jwt = req.body.access_token;
-  const email = req.query.email;
 
-  await pushAttestationFromJwt(jwt, 'email', email);
+  await pushAttestationFromJwt(jwt, 'email');
 
   ok(res);
 }

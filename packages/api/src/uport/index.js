@@ -1,6 +1,8 @@
 const { Credentials } = require('uport-credentials');
 const { transport, message } = require('uport-transports');
 const qrcode = require('qrcode');
+const jwtDecode = require('jwt-decode');
+const url = require('url');
 const { send } = require('../utils/email');
 const { qrTemplate } = require('./template');
 
@@ -43,11 +45,17 @@ async function pushAttestation({
   await push(attestation);
 }
 
-async function pushAttestationFromJwt(jwt, key, value) {
+async function pushAttestationFromJwt(jwt, callbackUrlParam) {
   const userCredentials = await credentials.authenticateDisclosureResponse(jwt);
   const did = userCredentials.did;
   const pushToken = userCredentials.pushToken;
   const publicEncKey = userCredentials.boxPub; // boxPub seems to be equal to publicEncKey for uPort (uport-transport @ push.js L42)
+
+  const requestJwt = jwtDecode(jwt).req;
+  const callbackUrl = jwtDecode(requestJwt).callback;
+  const callbackValue = url.parse(callbackUrl, true).query[callbackUrlParam];
+  const key = callbackUrlParam;
+  const value = callbackValue;
 
   await pushAttestation({ did, pushToken, publicEncKey }, key, value);
 }
