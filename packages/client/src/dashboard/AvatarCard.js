@@ -23,7 +23,7 @@ const Avatar = styled.img`
   border-radius: 999px;
 `;
 
-const ConnectionsText = styled.span`
+const ConnectionsLink = styled(NeatLink)`
   font-size: 1.2rem;
 `;
 
@@ -40,7 +40,9 @@ function AvatarCard({ user }) {
       <AvatarLink to="/dashboard/profile">
         <Avatar src={user.user.avatar && user.user.avatar.uri} />
       </AvatarLink>
-      <ConnectionsText>{user.user.verified ? user.user.verified.length : 0} connections</ConnectionsText>
+      <ConnectionsLink to="/dashboard">
+        {user.user.verified ? user.user.verified.length : 0} connections
+      </ConnectionsLink>
     </AvatarCardContainer>
   );
 }
