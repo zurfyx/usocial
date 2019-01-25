@@ -17,6 +17,7 @@ const NavContainer = styled.div`
   padding: ${spaces.default} ${spaces.default} ${spaces.default} calc(200px + ${spaces.default});
   border-bottom: 1px solid ${colors.separator};
   background-color: ${colors.background};
+  z-index: 2;
 `;
 
 const ConnectLink = styled(Link)`

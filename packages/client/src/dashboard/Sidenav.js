@@ -11,6 +11,7 @@ const SidenavContainer = styled.div`
   background-color: ${colors.backgroundDark};
   color: ${colors.textContrast};
   height: 100%;
+  z-index: 3;
 `;
 
 const LogoContainer = styled.div`
