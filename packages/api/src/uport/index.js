@@ -35,14 +35,11 @@ async function pushAttestation({
   publicEncKey,
 }, key, value) {
   const push = transport.push.send(pushToken, publicEncKey)
-  const newkey = key + 'a';
   const attestation = await credentials.createVerification({
     sub: did,
     exp: Math.floor(new Date().getTime() / 1000) + 365 * 24 * 60 * 60,
     claim: {
-      'usocialIdentity': [
-        { [newkey]: value + '123' },
-      ],
+      'usocialIdentity': { [key]: value },
     },
   });
   await push(attestation);
