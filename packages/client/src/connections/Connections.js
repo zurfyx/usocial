@@ -9,6 +9,7 @@ import MaxWidth from '../common/MaxWidth';
 import ToolBox from '../common/ToolBox';
 import BoxListItem from '../common/BoxListItem';
 import DefaultButton from '../common/DefaultButton';
+import Warning from '../common/Warning';
 import RefreshTool from '../shared/RefreshTool';
 import { UserContext } from '../app/UserProvider';
 import { spaces } from '../app/theme';
@@ -36,6 +37,10 @@ function Connections({ user }) {
       <ToolBox>
         <RefreshTool />
       </ToolBox>
+      <Warning id="new-connection">
+        If you have added a connection recently, you may have to click on the REFRESH link above to
+        sync your uPort mobile app attestations.
+      </Warning>
       <Section>
         <SectionHeader1 border={false}>Connections</SectionHeader1>
         <BoxList>
