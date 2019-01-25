@@ -1,5 +1,5 @@
 const passport = require('passport');
-const { ok, err400 } = require('../utils/router');
+const { err400 } = require('../utils/router');
 const { pushAttestation } = require('../uport');
 
 async function connectFacebook(req, res, next) {
@@ -17,9 +17,9 @@ async function connectFacebook(req, res, next) {
       return err400(res, 'Got an empty Facebook user object.');
     }
     
-    await pushAttestation(pushData, 'facebook', user.id);
+    const { attestation } = await pushAttestation(pushData, 'facebook', user.id);
 
-    ok(res);
+    res.json(attestation);
   })(req, res, next);
 }
 

@@ -38,8 +38,8 @@ function Connections({ user }) {
         <RefreshTool />
       </ToolBox>
       <Warning id="new-connection">
-        If you have added a connection recently, you may have to click on the REFRESH link above to
-        sync your uPort mobile app attestations.
+        If you have added a connection recently, you may have to click on the SYNCHRONISE link above
+        to view the latest version of your uPort mobile app attestations.
       </Warning>
       <Section>
         <SectionHeader1 border={false}>Connections</SectionHeader1>

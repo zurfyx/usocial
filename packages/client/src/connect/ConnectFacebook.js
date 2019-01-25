@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import { connect } from '../utils/react-context';
 import { generateState, validateState, clearQueryParams } from '../utils/oauth2';
-import { UserContext } from '../app/UserProvider';
+import { UserContext, pushAttestation } from '../app/UserProvider';
 import Loading from '../common/Loading';
 import Section from '../common/Section';
 import DefaultButton from '../common/DefaultButton';
@@ -72,7 +72,8 @@ function CallbackView({ user, facebookCode, facebookState }) {
 
   useEffect(() => {
     (async () => {
-      await handleCallback(facebookCode, facebookState, pushData);
+      const attestation = await handleCallback(facebookCode, facebookState, pushData);
+      await pushAttestation(user, attestation);
       setSuccess(true);
     })();
   }, []);

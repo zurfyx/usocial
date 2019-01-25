@@ -7,14 +7,16 @@ function connectEmail(email, name = '') {
   });
 }
 
-function connectFacebook(facebookCode, uportPush) {
+async function connectFacebook(facebookCode, uportPush) {
   const path = '/connect/facebook';
   const params = new URLSearchParams({
     code: facebookCode,
     ...uportPush,
   });
   const fullPath = `${path}?${params.toString()}`;
-  return fetchGet(fullPath);
+  const request = await fetchGet(fullPath);
+  const json = await request.json();
+  return json;
 }
 
 function connectGoogle(googleCode, uportPush) {

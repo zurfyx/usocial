@@ -19,7 +19,7 @@ function RefreshTool({ user }) {
 
   return (
     <ToolItem onClick={onRefresh}>
-      {isRefreshing ? <Loading text="Refreshing" /> : 'Refresh'}
+      {isRefreshing ? <Loading text="Synchronizing" /> : 'Synchronize'}
     </ToolItem>
   );
 }

@@ -56,6 +56,11 @@ function ConnectionsItem({ verifiedItem }) {
   const claim = Object.keys(verifiedItem.claim.usocialIdentity)[0];
   const value = verifiedItem.claim.usocialIdentity[claim];
   const platform = PLATFORMS[claim] || PLATFORMS.unknown;
+
+  if (typeof value !== 'string') {
+    return <Malformed />;
+  }
+
   return (
     <Item>
       <ItemIconContainer>
@@ -76,6 +81,31 @@ function ConnectionsItem({ verifiedItem }) {
         <dt>JWT</dt>
         <dd>{verifiedItem.jwt}</dd>
       </ConnectionsKeyValue>
+    </Item>
+  );
+}
+
+const ItemSpan = styled.p`
+  grid-column: 1 / span 2;
+`;
+
+// function DidMismatch() {
+//   // TODO expected attestation, received attestation
+//   return (
+//     <Item>
+//       <ItemSpan>
+//         This attestation was not created by Usocial Identity.
+//       </ItemSpan>
+//     </Item>
+//   );
+// }
+
+function Malformed() {
+  return (
+    <Item>
+      <ItemSpan>
+        Malformed attestation.
+      </ItemSpan>
     </Item>
   );
 }

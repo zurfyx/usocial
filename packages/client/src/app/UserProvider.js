@@ -28,9 +28,17 @@ async function signout(context) {
   window.sessionStorage.clear();
 }
 
+async function pushAttestation(context, attestation) {
+  context.setUser({
+    ...context.user,
+    verified: context.user.verified.concat(attestation),
+  });
+}
+
 export {
   UserContext,
   refresh,
   signout,
+  pushAttestation,
 };
 export default UserProvider;

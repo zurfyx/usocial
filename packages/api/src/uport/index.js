@@ -35,14 +35,20 @@ async function pushAttestation({
   publicEncKey,
 }, key, value) {
   const push = transport.push.send(pushToken, publicEncKey)
-  const attestation = await credentials.createVerification({
+  const attestationJwt = await credentials.createVerification({
     sub: did,
     exp: Math.floor(new Date().getTime() / 1000) + 365 * 24 * 60 * 60,
     claim: {
       'usocialIdentity': { [key]: value },
     },
   });
-  await push(attestation);
+  const attestationObject = {
+    ...jwtDecode(attestationJwt),
+    jwt: attestationJwt, // Mimic Uport Connect which carries the JWT version with it as well
+  };
+  const pushReceipt = await push(attestationJwt);
+
+  return { attestation: attestationObject, pushReceipt };
 }
 
 async function pushAttestationFromJwt(jwt, callbackUrlParam) {
@@ -57,7 +63,7 @@ async function pushAttestationFromJwt(jwt, callbackUrlParam) {
   const key = callbackUrlParam;
   const value = callbackValue;
 
-  await pushAttestation({ did, pushToken, publicEncKey }, key, value);
+  return pushAttestation({ did, pushToken, publicEncKey }, key, value);
 }
 
 module.exports = {
