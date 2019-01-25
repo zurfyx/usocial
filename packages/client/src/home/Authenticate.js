@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState, Fragment } from 'react';
 import styled from 'styled-components';
 import { connect } from '../utils/react-context';
 import { UserContext } from '../app/UserProvider';
-import { requestDisclosure } from '../uport';
+import { refresh } from '../app/UserProvider';
+import Loading from '../common/Loading';
 
 const GetStarted = styled.button`
   color: #4663ac;
@@ -13,16 +14,22 @@ const GetStarted = styled.button`
 `;
 
 function Authenticate({ user }) {
-  
-  async function authenticate() {
-    const data = await requestDisclosure();
-    user.setUser(data);
+  const [isRefreshing, setIsRefreshing] = useState(false);
+
+  async function onRefresh() {
+    setIsRefreshing(true);
+    await refresh.call(Authenticate, user);
+    setIsRefreshing(false);
   }
 
   return (
-    <GetStarted onClick={() => authenticate()}>
-      Get started
-    </GetStarted>
+    <Fragment>
+      {!isRefreshing && (
+        <GetStarted onClick={() => onRefresh(user)}>
+          Get started
+        </GetStarted>)}
+      {isRefreshing && <Loading text="Generating QR code" />}
+    </Fragment>
   );
 }
 

@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react';
-import {  } from 'react-router-dom';
 import styled from 'styled-components';
 import { connect } from '../utils/react-context';
 import MaxWidth from '../common/MaxWidth';
@@ -8,21 +7,15 @@ import SectionHeader1 from '../common/SectionHeader1';
 import Box from '../common/Box';
 import BoxMultilineHeader from '../common/BoxMultilineHeader';
 import KeyValue from '../common/KeyValue';
-import { colors, spaces } from '../app/theme';
+import ToolBox from '../common/ToolBox';
+import ToolItem from '../common/ToolItem';
+import RefreshTool from '../shared/RefreshTool';
+import { spaces } from '../app/theme';
 import { UserContext } from '../app/UserProvider';
 import { clearStorage } from '../uport';
 
 const ProfileContainer = styled(MaxWidth)`
   padding: ${spaces.section};
-`;
-
-const Tools = styled.div`
-  display: flex;
-`;
-
-const Signout = styled.a`
-  margin-left: auto;
-  color: ${colors.textHeader};
 `;
 
 function Profile({ user }) {
@@ -34,12 +27,13 @@ function Profile({ user }) {
 
   return (
     <ProfileContainer>
+      <ToolBox>
+        <RefreshTool />
+        <ToolItem onClick={() => signout(user)}>
+          Sign out  <i className="fas fa-sign-out-alt" aria-hidden="true"></i>
+        </ToolItem>
+      </ToolBox>
       <Section>
-        <Tools>
-          <Signout onClick={() => signout(user)}>
-            Sign out  <i className="fas fa-sign-out-alt" aria-hidden="true"></i>
-          </Signout>
-        </Tools>
         <SectionHeader1 border={false}>Profile</SectionHeader1>
         <Box>
           <BoxMultilineHeader>

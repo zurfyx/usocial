@@ -1,5 +1,6 @@
 import React, { createContext } from 'react';
 import { useLocalStorage } from '../utils/react-context';
+import { requestDisclosure } from '../uport'
 
 const UserContext = createContext();
 
@@ -13,7 +14,16 @@ function UserProvider(props) {
   );
 }
 
+/**
+ * Actions
+ */
+async function refresh(context) {
+  const data = await requestDisclosure();
+  context.setUser(data);
+}
+
 export {
   UserContext,
+  refresh,
 };
 export default UserProvider;

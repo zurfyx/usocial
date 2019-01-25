@@ -1,4 +1,9 @@
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
+
+const Hidden = styled.span`
+  visibility: hidden;
+`;
 
 function Loading({ text }) {
   const [dotCount, setDotCount] = useState(0);
@@ -10,7 +15,13 @@ function Loading({ text }) {
     return () => window.clearInterval(interval);
   });
 
-  return <Fragment>{text}{'.'.repeat(dotCount)}</Fragment>
+  return (
+    <span>
+      {text}
+      <span>{'.'.repeat(dotCount)}</span>
+      <Hidden>{'.'.repeat(3 - dotCount)}</Hidden>
+    </span>
+  );
 }
 
 export default Loading;
