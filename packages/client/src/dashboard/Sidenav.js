@@ -82,12 +82,12 @@ function Sidenav() {
         <Level0Item>Manage</Level0Item>
         <NeatList>
           <Level1Link to="/dashboard" exact={true} activeClassName="active"><Level1Item>All connections</Level1Item></Level1Link>
-          <Level1Item>Integrate</Level1Item>
+          <Level1Item onClick={() => window.alert('Coming soon')}>Integrate</Level1Item>
         </NeatList>
         <Level0Item>Account</Level0Item>
         <NeatList>
           <Level1Link to="/dashboard/profile" activeClassName="active"><Level1Item>Profile</Level1Item></Level1Link>
-          <Level1Item>Network</Level1Item>
+          <Level1Item onClick={() => window.alert('Coming soon')}>Network</Level1Item>
         </NeatList>
       </SidenavContent>
     </SidenavContainer>
