@@ -1,6 +1,6 @@
 import React, { createContext } from 'react';
 import { useLocalStorage } from '../utils/react-context';
-import { requestDisclosure } from '../uport'
+import { requestDisclosure, clearStorage as uportClearStorage } from '../uport'
 
 const UserContext = createContext();
 
@@ -22,8 +22,15 @@ async function refresh(context) {
   context.setUser(data);
 }
 
+async function signout(context) {
+  uportClearStorage();
+  window.sessionStorage.clear();
+  context.setUser({});
+}
+
 export {
   UserContext,
   refresh,
+  signout,
 };
 export default UserProvider;

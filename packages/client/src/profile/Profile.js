@@ -11,19 +11,13 @@ import ToolBox from '../common/ToolBox';
 import ToolItem from '../common/ToolItem';
 import RefreshTool from '../shared/RefreshTool';
 import { spaces } from '../app/theme';
-import { UserContext } from '../app/UserProvider';
-import { clearStorage } from '../uport';
+import { UserContext, signout } from '../app/UserProvider';
 
 const ProfileContainer = styled(MaxWidth)`
   padding: ${spaces.section};
 `;
 
 function Profile({ user }) {
-
-  function signout() {
-    user.setUser({});
-    clearStorage();
-  }
 
   return (
     <ProfileContainer>
