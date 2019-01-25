@@ -4,6 +4,24 @@ import { colors } from '../app/theme';
 import BoxListItem from '../common/BoxListItem';
 import KeyValue from '../common/KeyValue';
 
+const PLATFORMS = {
+  facebook: {
+    fa: 'fab fa-facebook',
+  },
+  google: {
+    fa: 'fab fa-google',
+  },
+  twitter: {
+    fa: 'fab fa-twitter',
+  },
+  email: {
+    fa: 'fas fa-envelope',
+  },
+  unknown: {
+    fa: 'fas fa-question',
+  }
+};
+
 const Item = styled(BoxListItem)`
   display: grid;
   grid-template-columns: 60px 1fr;
@@ -20,6 +38,9 @@ const ItemIcon = styled.i`
   background-color: ${colors.backgroundLight};
   padding: 1.5rem;
   border-radius: 999px;
+  text-align: center;
+  width: 46px;
+  height: 46px;
 `;
 
 const ItemValue = styled.span`
@@ -34,10 +55,11 @@ const ConnectionsKeyValue = styled(KeyValue)`
 function ConnectionsItem({ verifiedItem }) {
   const claim = Object.keys(verifiedItem.claim.usocialIdentity)[0];
   const value = verifiedItem.claim.usocialIdentity[claim];
+  const platform = PLATFORMS[claim] || PLATFORMS.unknown;
   return (
     <Item>
       <ItemIconContainer>
-        <ItemIcon className="fas fa-envelope" aria-hidden="true"></ItemIcon>
+        <ItemIcon className={platform.fa} aria-hidden="true"></ItemIcon>
       </ItemIconContainer>
       <ItemValue>{value}</ItemValue>
       <ConnectionsKeyValue>
