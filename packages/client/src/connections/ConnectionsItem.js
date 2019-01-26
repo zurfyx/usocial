@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { colors } from '../app/theme';
+import { colors, sizes } from '../app/theme';
 import BoxListItem from '../common/BoxListItem';
 import KeyValue from '../common/KeyValue';
 
@@ -26,6 +26,10 @@ const Item = styled(BoxListItem)`
   display: grid;
   grid-template-columns: 60px 1fr;
   grid-column-gap: 3rem;
+
+  @media (max-width: ${sizes.phablet}) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 const ItemIconContainer = styled.div`
@@ -37,6 +41,7 @@ const ItemIcon = styled.i`
   color: #666;
   background-color: ${colors.backgroundLight};
   padding: 1.5rem;
+  margin-bottom: 2rem;
   border-radius: 999px;
   text-align: center;
   width: 46px;
