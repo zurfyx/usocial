@@ -17,7 +17,6 @@ const Close = styled.a`
   top: 0;
   right: 0;
   padding: 2rem;
-  float: right;
 `;
 
 function Warning({ id, children }) {
