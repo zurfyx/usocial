@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { colors, spaces } from '../app/theme';
+import { colors } from '../app/theme';
 import { useLocalStorage } from '../utils/react-context';
 
 const WarningContainer = styled.div`
@@ -8,7 +8,7 @@ const WarningContainer = styled.div`
   background-color: #ffffcc;
   margin-top: 2rem;
   margin-bottom: 2rem;
-  padding: ${spaces.section};
+  padding: 4.2rem;
 `;
 
 const Close = styled.a`

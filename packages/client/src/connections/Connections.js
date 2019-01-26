@@ -5,19 +5,14 @@ import { connect } from '../utils/react-context';
 import Section from '../common/Section';
 import SectionHeader1 from '../common/SectionHeader1';
 import BoxList from '../common/BoxList';
-import MaxWidth from '../common/MaxWidth';
 import ToolBox from '../common/ToolBox';
 import BoxListItem from '../common/BoxListItem';
 import DefaultButton from '../common/DefaultButton';
 import Warning from '../common/Warning';
 import RefreshTool from '../shared/RefreshTool';
 import { UserContext } from '../app/UserProvider';
-import { spaces } from '../app/theme';
+import DashboardPage from '../dashboard/DashboardPage';
 import ConnectionsItem from './ConnectionsItem';
-
-const ConnectionsContainer = styled(MaxWidth)`
-  padding: ${spaces.section};
-`;
 
 const NoConnections = styled(BoxListItem)`
   padding: 4.2rem;
@@ -33,7 +28,7 @@ function Connections({ user }) {
   const verified = user.user.verified;
 
   return (
-    <ConnectionsContainer>
+    <DashboardPage>
       <ToolBox>
         <RefreshTool />
       </ToolBox>
@@ -55,7 +50,7 @@ function Connections({ user }) {
           ))}
         </BoxList>
       </Section>
-    </ConnectionsContainer>
+    </DashboardPage>
   );
 }
 

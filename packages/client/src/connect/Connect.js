@@ -1,11 +1,11 @@
 import React from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import styled from 'styled-components';
-import MaxWidth from '../common/MaxWidth';
 import Section from '../common/Section';
 import SectionHeader1 from '../common/SectionHeader1';
 import { spaces } from '../app/theme';
 import TransparentRoundedButton from '../common/TransparentRoundedButton';
+import DashboardPage from '../dashboard/DashboardPage';
 import ConnectFacebook from './ConnectFacebook';
 import ConnectGoogle from './ConnectGoogle';
 import ConnectTwitter from './ConnectTwitter';
@@ -34,10 +34,6 @@ const PLATFORMS = {
   },
 };
 
-const ConnectionsContainer = styled(MaxWidth)`
-  padding: ${spaces.section};
-`;
-
 const ChooseContainer = styled.div`
   margin-top: -2rem;
   margin-left: -2rem;
@@ -57,7 +53,7 @@ const SocialName = styled.span`
 
 function Connections({ history }) {
   return (
-    <ConnectionsContainer>
+    <DashboardPage>
       <Section>
         <SectionHeader1>Connect</SectionHeader1>
         <ChooseContainer>
@@ -74,7 +70,7 @@ function Connections({ history }) {
           <Route key={key} path={`/dashboard/connect/${key}`} exact component={value.next}></Route>
         ))}
       </Switch>
-    </ConnectionsContainer>
+    </DashboardPage>
   );
 }
 

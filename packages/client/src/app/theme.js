@@ -14,7 +14,6 @@ const colors = {
 
 const spaces = {
   default: '1.5rem',
-  section: '4.2rem',
 };
 
 const sizes = {

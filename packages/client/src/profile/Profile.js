@@ -1,7 +1,6 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { connect } from '../utils/react-context';
-import MaxWidth from '../common/MaxWidth';
 import Section from '../common/Section';
 import SectionHeader1 from '../common/SectionHeader1';
 import Box from '../common/Box';
@@ -10,17 +9,13 @@ import KeyValue from '../common/KeyValue';
 import ToolBox from '../common/ToolBox';
 import ToolItem from '../common/ToolItem';
 import RefreshTool from '../shared/RefreshTool';
-import { spaces } from '../app/theme';
 import { UserContext, signout } from '../app/UserProvider';
-
-const ProfileContainer = styled(MaxWidth)`
-  padding: ${spaces.section};
-`;
+import DashboardPage from '../dashboard/DashboardPage';
 
 function Profile({ user }) {
 
   return (
-    <ProfileContainer>
+    <DashboardPage>
       <ToolBox>
         <RefreshTool />
         <ToolItem onClick={() => signout(user)}>
@@ -65,7 +60,7 @@ function Profile({ user }) {
           </KeyValue>
         </Box>
       </Section>
-    </ProfileContainer>
+    </DashboardPage>
   );
 }
 
