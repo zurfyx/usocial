@@ -6,15 +6,11 @@ import { connect } from '../utils/react-context';
 import { UserContext } from '../app/UserProvider';
 import Nav from './Nav';
 import Sidenav from './Sidenav';
-import DashboardRoutes from './DashboardRoutes';
+import Content from './Content';
+import SidenavProvider from './SidenavProvider';
 
 const DashboardContainer = styled.div`
   height: 100vh;
-`;
-
-const ContentContainer = styled.div`
-  margin-top: 60px;
-  margin-left: 200px;
 `;
 
 function Dashboard({ user }) {
@@ -23,13 +19,13 @@ function Dashboard({ user }) {
   }
 
   return (
-    <DashboardContainer>
-      <Nav />
-      <Sidenav />
-      <ContentContainer>
-        <DashboardRoutes />
-      </ContentContainer>
-    </DashboardContainer>
+    <SidenavProvider>
+      <DashboardContainer>
+        <Nav />
+        <Sidenav />
+        <Content />
+      </DashboardContainer>
+    </SidenavProvider>
   );
 }
 

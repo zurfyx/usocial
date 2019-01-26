@@ -7,6 +7,7 @@ import MaxWidth from '../common/MaxWidth';
 import ExternalLink from '../common/ExternalLink';
 import ScreenReader from '../common/ScreenReader';
 import { UserContext } from '../app/UserProvider';
+import { sizes } from '../app/theme';
 import Authenticate from './Authenticate';
 
 const HomeContainer = styled.div`
@@ -15,6 +16,11 @@ const HomeContainer = styled.div`
   background: #36d1dc;
   background: -webkit-linear-gradient(to top, #36d1dc, #5b86e5);
   background: linear-gradient(to top, #36d1dc, #5b86e5);
+
+  @media (max-width: ${sizes.phablet}) {
+    height: auto;
+    min-height: 100vh;
+  }
 `;
 
 const HomeContent = styled(MaxWidth)`
@@ -25,6 +31,10 @@ const HomeContent = styled(MaxWidth)`
 
   a {
     color: #f4f4f4;
+  }
+
+  @media (max-width: ${sizes.phablet}) {
+    height: 100%;
   }
 `;
 

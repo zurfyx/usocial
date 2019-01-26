@@ -17,7 +17,18 @@ const spaces = {
   section: '4.2rem',
 };
 
+const sizes = {
+  mobile: '400px',
+  phablet: '550px',
+  tablet: '750px',
+  desktop: '1000px',
+  desktopHd: '1200px',
+
+  mobileSidenav: '1000px',
+}
+
 export {
   colors,
   spaces,
+  sizes,
 };
