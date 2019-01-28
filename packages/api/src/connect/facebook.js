@@ -1,12 +1,14 @@
 const passport = require('passport');
 const { err400 } = require('../utils/router');
-const { pushAttestation } = require('../uport');
+const { pushAttestation, verifyAttestation } = require('../uport');
+const AttestationBuilder = require('../uport/AttestationBuilder');
 
 async function connectFacebook(req, res, next) {
+  const attestedObj = req.body.attested && await verifyAttestation(req.body.attested);
   const pushData = {
-    did: req.query.did,
-    pushToken: req.query.pushToken,
-    publicEncKey: req.query.publicEncKey,
+    did: req.body.did,
+    pushToken: req.body.pushToken,
+    publicEncKey: req.body.publicEncKey,
   };
 
   passport.authenticate('facebook', async (err, user) => {
@@ -17,7 +19,11 @@ async function connectFacebook(req, res, next) {
       return err400(res, 'Got an empty Facebook user object.');
     }
     
-    const { attestation } = await pushAttestation(pushData, 'facebook', user.id);
+    const attestationBuilder = new AttestationBuilder();
+    attestationBuilder.addMany(attestedObj && attestedObj.claim.usocialIdentity);
+    attestationBuilder.addOne('facebook', user.id);
+    const attestationValues = attestationBuilder.values;
+    const { attestation } = await pushAttestation(pushData, attestationValues);
 
     res.json(attestation);
   })(req, res, next);

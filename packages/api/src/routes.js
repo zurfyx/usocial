@@ -11,7 +11,7 @@ router.get('/', (req, res) => {
   OK(res);
 });
 
-router.get('/connect/facebook', connectFacebook);
+router.post('/connect/facebook', connectFacebook);
 router.get('/connect/google', connectGoogle);
 router.get('/connect/twitter/oauth-token', twitterRequestToken);
 router.get('/connect/twitter', connectTwitter);

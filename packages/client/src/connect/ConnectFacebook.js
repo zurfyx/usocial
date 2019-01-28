@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import { connect } from '../utils/react-context';
 import { generateState, validateState, clearQueryParams } from '../utils/oauth2';
-import { UserContext, pushAttestation } from '../app/UserProvider';
+import { UserContext, pushAttestation, getLastAttestation } from '../app/UserProvider';
 import Loading from '../common/Loading';
 import Section from '../common/Section';
 import DefaultButton from '../common/DefaultButton';
@@ -20,12 +20,12 @@ function requestCode() {
   window.location.href = facebookUrl.toString();
 }
 
-async function handleCallback(facebookCode, facebookState, uportPush) {
+async function handleCallback(facebookCode, facebookState, uportPush, attestedJwt) {
   if (!validateState(facebookState)) {
     throw new Error('State doesn\'t match');
   }
 
-  return connectFacebook(facebookCode, uportPush);
+  return connectFacebook(facebookCode, uportPush, attestedJwt);
 }
 
 function ConnectFacebook({ location, user }) {
@@ -72,7 +72,8 @@ function CallbackView({ user, facebookCode, facebookState }) {
 
   useEffect(() => {
     (async () => {
-      const attestation = await handleCallback(facebookCode, facebookState, pushData);
+      const attestedJwt = getLastAttestation(user) && getLastAttestation(user).jwt;
+      const attestation = await handleCallback(facebookCode, facebookState, pushData, attestedJwt);
       await pushAttestation(user, attestation);
       setSuccess(true);
     })();

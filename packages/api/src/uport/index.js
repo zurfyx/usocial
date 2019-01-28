@@ -33,13 +33,13 @@ async function pushAttestation({
   did,
   pushToken,
   publicEncKey,
-}, key, value) {
-  const push = transport.push.send(pushToken, publicEncKey)
+}, values) {
+  const push = transport.push.send(pushToken, publicEncKey);
   const attestationJwt = await credentials.createVerification({
     sub: did,
     exp: Math.floor(new Date().getTime() / 1000) + 365 * 24 * 60 * 60,
     claim: {
-      'usocialIdentity': { [key]: value },
+      'usocialIdentity': values,
     },
   });
   const attestationObject = {
@@ -51,7 +51,11 @@ async function pushAttestation({
   return { attestation: attestationObject, pushReceipt };
 }
 
-async function pushAttestationFromJwt(jwt, callbackUrlParam) {
+/**
+ * JWT is validated and used to extract uPort information.
+ * @param {values} Attestation values
+ */
+async function pushAttestationFromJwt(jwt, values) {
   const userCredentials = await credentials.authenticateDisclosureResponse(jwt);
   const did = userCredentials.did;
   const pushToken = userCredentials.pushToken;
@@ -66,9 +70,24 @@ async function pushAttestationFromJwt(jwt, callbackUrlParam) {
   return pushAttestation({ did, pushToken, publicEncKey }, key, value);
 }
 
+/**
+ * Verify JWT signature, and DID belongs to us
+ * Example return:
+ * { did: 'did:ethr:0xccdaa2972d2546dbd77adddcceaefb2633f582a0',
+ *   boxPub: undefined,
+ *   sub: 'did:ethr:0x47254494e3ede9bb7e97cc306fc7a6065ed923ef',
+ *   claim: { usocialIdentity: { facebook: '10213829113183103' } } } 
+ */
+// TODO did belongs to us
+async function verifyAttestation(jwt) {
+  const verified = await credentials.verifyDisclosure(jwt);
+  return verified;
+}
+
 module.exports = {
   credentials,
   emailDisclosureRequest,
   pushAttestation,
   pushAttestationFromJwt,
+  verifyAttestation,
 };

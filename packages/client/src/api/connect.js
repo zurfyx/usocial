@@ -7,14 +7,14 @@ function connectEmail(email, name = '') {
   });
 }
 
-async function connectFacebook(facebookCode, uportPush) {
+async function connectFacebook(facebookCode, uportPush, attestedJwt) {
   const path = '/connect/facebook';
-  const params = new URLSearchParams({
-    code: facebookCode,
-    ...uportPush,
-  });
+  const params = new URLSearchParams({ code: facebookCode });
   const fullPath = `${path}?${params.toString()}`;
-  const request = await fetchGet(fullPath);
+  const request = await fetchPost(fullPath, {
+    ...uportPush,
+    attested: attestedJwt,
+  });
   const json = await request.json();
   return json;
 }
