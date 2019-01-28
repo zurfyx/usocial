@@ -3,7 +3,8 @@ import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import { connect } from '../utils/react-context';
 import { generateState, validateState, clearQueryParams } from '../utils/oauth2';
-import { UserContext, addAttestation, getLastAttestation } from '../app/UserProvider';
+import { UserContext, addAttestation } from '../app/UserProvider';
+import { currentAttestation } from '../uport/tools';
 import Loading from '../common/Loading';
 import Section from '../common/Section';
 import DefaultButton from '../common/DefaultButton';
@@ -72,7 +73,7 @@ function CallbackView({ user, facebookCode, facebookState }) {
 
   useEffect(() => {
     (async () => {
-      const attestedJwt = getLastAttestation(user) && getLastAttestation(user).jwt;
+      const attestedJwt = currentAttestation(user.user.verified) && currentAttestation(user.user.verified).jwt;
       const attestation = await handleCallback(facebookCode, facebookState, pushData, attestedJwt);
       await addAttestation(user, attestation);
       setSuccess(true);

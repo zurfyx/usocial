@@ -36,17 +36,10 @@ function addAttestation(context, attestation) {
   });
 }
 
-// TODO verify DID
-function getLastAttestation(context) {
-  const verified = context.user.verified;
-  return verified.length > 0 && verified[verified.length - 1];
-}
-
 export {
   UserContext,
   refresh,
   signout,
   addAttestation,
-  getLastAttestation,
 };
 export default UserProvider;

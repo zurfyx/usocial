@@ -78,7 +78,7 @@ async function verifyAttestation(jwt) {
   const verified = await credentials.verifyDisclosure(jwt);
   
   if (verified.did !== ISS_DID) {
-    throw new Error(`Attestation issuer does not match. Expected: ${ISS_DID}; Received: ${verified.did}`);
+    throw new Error(`Attestation issuer mismatch. Expected: ${ISS_DID}; Received: ${verified.did}`);
   }
 
   return verified;
