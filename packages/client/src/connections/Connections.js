@@ -1,18 +1,18 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { connect } from '../utils/react-context';
 import Section from '../common/Section';
 import SectionHeader1 from '../common/SectionHeader1';
-import BoxList from '../common/BoxList';
 import ToolBox from '../common/ToolBox';
 import BoxListItem from '../common/BoxListItem';
 import DefaultButton from '../common/DefaultButton';
 import Warning from '../common/Warning';
 import RefreshTool from '../shared/RefreshTool';
 import { UserContext } from '../app/UserProvider';
+import { sortAttestations, currentAttestation } from '../uport/tools';
 import DashboardPage from '../dashboard/DashboardPage';
-import ConnectionsItem from './ConnectionsItem';
+import Attestation from './Attestation';
 
 const NoConnections = styled(BoxListItem)`
   padding: 4.2rem;
@@ -25,7 +25,8 @@ const ConnectButton = styled(DefaultButton)`
 `;
 
 function Connections({ user }) {
-  const verified = user.user.verified;
+  const attestations = sortAttestations(user.user.verified);
+  const current = currentAttestation(attestations);
 
   return (
     <DashboardPage>
@@ -38,17 +39,18 @@ function Connections({ user }) {
       </Warning>
       <Section>
         <SectionHeader1 border={false}>Connections</SectionHeader1>
-        <BoxList>
-          {verified.length === 0 && (
-            <NoConnections>
-              No connections found.
-              <Link to="/dashboard/connect"><ConnectButton>Connect</ConnectButton></Link>
-            </NoConnections>
-          )}
-          {verified && verified.map((verifiedItem) => (
-            <ConnectionsItem key={verifiedItem.jwt} verifiedItem={verifiedItem} />
-          ))}
-        </BoxList>
+        {attestations.length === 0 && (
+          <NoConnections>
+            No connections found.
+            <Link to="/dashboard/connect"><ConnectButton>Connect</ConnectButton></Link>
+          </NoConnections>
+        )}
+        {attestations && attestations.map((attestation, i) => (
+          <Fragment key={attestation.jwt}>
+            <h2>{`#${i + 1}${attestation.jwt === current.jwt ? ' (Current)' : ''}`}</h2>
+            <Attestation attestation={attestation} />
+          </Fragment>
+        ))}
       </Section>
     </DashboardPage>
   );

@@ -4,6 +4,8 @@ import { colors, sizes } from '../app/theme';
 import BoxListItem from '../common/BoxListItem';
 import KeyValue from '../common/KeyValue';
 
+const ISS_DID = process.env.REACT_APP_UPORT_DID;
+
 const PLATFORMS = {
   facebook: {
     fa: 'fab fa-facebook',
@@ -57,34 +59,36 @@ const ConnectionsKeyValue = styled(KeyValue)`
   grid-template-columns: 85px 1fr;
 `;
 
-function ConnectionsItem({ verifiedItem }) {
-  const claim = Object.keys(verifiedItem.claim.usocialIdentity)[0];
-  const value = verifiedItem.claim.usocialIdentity[claim];
-  const platform = PLATFORMS[claim] || PLATFORMS.unknown;
-
-  if (typeof value !== 'string') {
-    return <Malformed />;
-  }
+function AttestationItem({
+  platform,
+  value,
+  iat,
+  exp,
+  iss,
+  sub,
+  jwt,
+ }) {
+  const platformInfo = PLATFORMS[platform] || PLATFORMS.unknown;
 
   return (
     <Item>
       <ItemIconContainer>
-        <ItemIcon className={platform.fa} aria-hidden="true"></ItemIcon>
+        <ItemIcon className={platformInfo.fa} aria-hidden="true"></ItemIcon>
       </ItemIconContainer>
       <ItemValue>{value}</ItemValue>
       <ConnectionsKeyValue>
         <dt>Claim</dt>
-        <dd>{claim}</dd>
+        <dd>{platform}</dd>
         <dt>Expedited</dt>
-        <dd>{new Date(verifiedItem.iat * 1e3).toLocaleDateString()}</dd>
+        <dd>{new Date(iat * 1e3).toLocaleDateString()}</dd>
         <dt>Expires</dt>
-        <dd>{new Date(verifiedItem.exp * 1e3).toLocaleDateString()}</dd>
+        <dd>{new Date(exp * 1e3).toLocaleDateString()}</dd>
         <dt>Issuer</dt>
-        <dd>{verifiedItem.iss}</dd>
+        <dd>{iss}</dd>
         <dt>Receiver</dt>
-        <dd>{verifiedItem.sub}</dd>
+        <dd>{sub}</dd>
         <dt>JWT</dt>
-        <dd>{verifiedItem.jwt}</dd>
+        <dd>{jwt}</dd>
       </ConnectionsKeyValue>
     </Item>
   );
@@ -94,16 +98,19 @@ const ItemSpan = styled.p`
   grid-column: 1 / span 2;
 `;
 
-// function DidMismatch() {
-//   // TODO expected attestation, received attestation
-//   return (
-//     <Item>
-//       <ItemSpan>
-//         This attestation was not created by Usocial Identity.
-//       </ItemSpan>
-//     </Item>
-//   );
-// }
+function DidMismatch(attestation) {
+  const expected = ISS_DID;
+  const received = attestation.iss;
+  return (
+    <Item>
+      <ItemSpan>
+        DID mismatch. This attestation was not created by Usocial Identity.
+        <p>Expected: ${expected}</p>
+        <p>Received: ${received}</p>
+      </ItemSpan>
+    </Item>
+  );
+}
 
 function Malformed() {
   return (
@@ -115,4 +122,8 @@ function Malformed() {
   );
 }
 
-export default ConnectionsItem;
+export {
+  Malformed,
+  DidMismatch,
+};
+export default AttestationItem;
