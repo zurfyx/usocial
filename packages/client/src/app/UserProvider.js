@@ -28,7 +28,8 @@ async function signout(context) {
   window.sessionStorage.clear();
 }
 
-async function pushAttestation(context, attestation) {
+// TODO remove attestations which content is deep equal
+function addAttestation(context, attestation) {
   context.setUser({
     ...context.user,
     verified: context.user.verified.concat(attestation),
@@ -45,7 +46,7 @@ export {
   UserContext,
   refresh,
   signout,
-  pushAttestation,
+  addAttestation,
   getLastAttestation,
 };
 export default UserProvider;

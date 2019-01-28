@@ -11,6 +11,8 @@ class AttestationBuilder {
       return; // Same value already present
     }
     this.values[key].push(value);
+
+    return this;
   }
 
   addMany(keyValues = {}) {
@@ -19,6 +21,8 @@ class AttestationBuilder {
         this.addOne(key, value);
       });
     });
+
+    return this;
   }
 }
 

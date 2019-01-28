@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import { connect } from '../utils/react-context';
 import { generateState, validateState, clearQueryParams } from '../utils/oauth2';
-import { UserContext } from '../app/UserProvider';
+import { UserContext, addAttestation, getLastAttestation } from '../app/UserProvider';
 import Loading from '../common/Loading';
 import Section from '../common/Section';
 import DefaultButton from '../common/DefaultButton';
@@ -22,12 +22,12 @@ function requestCode() {
   window.location.href = googleUrl.toString();
 }
 
-async function handleCallback(googleCode, googleState, uportPush) {
+async function handleCallback(googleCode, googleState, uportPush, attestedJwt = null) {
   if (!validateState(googleState)) {
     throw new Error('State doesn\'t match');
   }
 
-  return connectGoogle(googleCode, uportPush);
+  return connectGoogle(googleCode, uportPush, attestedJwt);
 }
 
 function ConnectGoogle({ location, user }) {
@@ -74,7 +74,11 @@ function CallbackView({ user, googleCode, googleState }) {
 
   useEffect(() => {
     (async () => {
-      await handleCallback(googleCode, googleState, pushData);
+      console.info(getLastAttestation(user))
+      const attestedJwt = getLastAttestation(user) && getLastAttestation(user).jwt;
+      console.info(attestedJwt)
+      const attestation = await handleCallback(googleCode, googleState, pushData, attestedJwt);
+      await addAttestation(user, attestation);
       setSuccess(true);
     })();
   }, []);

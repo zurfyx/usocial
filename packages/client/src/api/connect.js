@@ -19,14 +19,16 @@ async function connectFacebook(facebookCode, uportPush, attestedJwt) {
   return json;
 }
 
-function connectGoogle(googleCode, uportPush) {
+async function connectGoogle(googleCode, uportPush, attestedJwt) {
   const path = '/connect/google';
-  const params = new URLSearchParams({
-    code: googleCode,
-    ...uportPush,
-  });
+  const params = new URLSearchParams({ code: googleCode });
   const fullPath = `${path}?${params.toString()}`;
-  return fetchGet(fullPath);
+  const request = await fetchPost(fullPath, {
+    ...uportPush,
+    attested: attestedJwt,
+  });
+  const json = await request.json();
+  return json;
 }
 
 async function connectTwitterOauthToken() {

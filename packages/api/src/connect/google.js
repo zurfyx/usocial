@@ -1,12 +1,14 @@
 const passport = require('passport');
 const { ok, err400 } = require('../utils/router');
-const { pushAttestation } = require('../uport');
+const { pushAttestation, verifyAttestation } = require('../uport');
+const AttestationBuilder = require('../uport/AttestationBuilder');
 
 async function connectGoogle(req, res, next) {
+  const attestedObj = req.body.attested && await verifyAttestation(req.body.attested);
   const pushData = {
-    did: req.query.did,
-    pushToken: req.query.pushToken,
-    publicEncKey: req.query.publicEncKey,
+    did: req.body.did,
+    pushToken: req.body.pushToken,
+    publicEncKey: req.body.publicEncKey,
   };
 
   passport.authenticate('google', async (err, user) => {
@@ -17,9 +19,13 @@ async function connectGoogle(req, res, next) {
       return err400(res, 'Got an empty Google user object.');
     }
     
-    await pushAttestation(pushData, 'google', user.id);
+    const attestationBuilder = new AttestationBuilder()
+      .addMany(attestedObj && attestedObj.claim.usocialIdentity)
+      .addOne('google', user.id);
+    const attestationValues = attestationBuilder.values;
+    const { attestation } = await pushAttestation(pushData, attestationValues);
 
-    ok(res);
+    res.json(attestation);
   })(req, res, next);
 }
 
