@@ -74,9 +74,7 @@ function CallbackView({ user, googleCode, googleState }) {
 
   useEffect(() => {
     (async () => {
-      console.info(getLastAttestation(user))
       const attestedJwt = getLastAttestation(user) && getLastAttestation(user).jwt;
-      console.info(attestedJwt)
       const attestation = await handleCallback(googleCode, googleState, pushData, attestedJwt);
       await addAttestation(user, attestation);
       setSuccess(true);

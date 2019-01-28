@@ -2,7 +2,7 @@ import React, { useReducer } from 'react';
 import styled from 'styled-components';
 import isEmail from 'validator/lib/isEmail';
 import { connect } from '../utils/react-context';
-import { UserContext } from '../app/UserProvider';
+import { UserContext, getLastAttestation } from '../app/UserProvider';
 import Loading from '../common/Loading';
 import Section from '../common/Section';
 import DefaultButton from '../common/DefaultButton';
@@ -80,7 +80,8 @@ function ConnectEmail({ user }) {
     }
     dispatch({ type: 'submit' });
     
-    await connectEmail(state.email, user.user.name);
+    const attestedJwt = getLastAttestation(user) && getLastAttestation(user).jwt;
+    await connectEmail(state.email, user.user.name, attestedJwt);
     dispatch({ type: 'success' });
   }
   

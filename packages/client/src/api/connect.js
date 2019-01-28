@@ -1,9 +1,10 @@
 import { fetchGet, fetchPost } from './fetch';
 
-function connectEmail(email, name = '') {
+function connectEmail(email, name, attestedJwt) {
   return fetchPost('/connect/email', {
     email,
     name,
+    attested: attestedJwt
   });
 }
 
