@@ -5,9 +5,12 @@ const jwtDecode = require('jwt-decode');
 const { send } = require('../utils/email');
 const { qrTemplate } = require('./template');
 
+const ISS_DID = process.env.REACT_APP_UPORT_DID;
+
 const credentials = new Credentials({
   appName: 'uSocial Identity',
   network: 'rinkeby',
+  did: ISS_DID,
   privateKey: process.env.UPORT_PRIVATE_KEY,
 });
 
@@ -71,9 +74,13 @@ async function pushAttestationFromDisclosureRequest(jwt, values) {
  *   sub: 'did:ethr:0x47254494e3ede9bb7e97cc306fc7a6065ed923ef',
  *   claim: { usocialIdentity: { facebook: '10213829113183103' } } } 
  */
-// TODO did belongs to us
 async function verifyAttestation(jwt) {
   const verified = await credentials.verifyDisclosure(jwt);
+  
+  if (verified.did !== ISS_DID) {
+    throw new Error(`Attestation issuer does not match. Expected: ${ISS_DID}; Received: ${verified.did}`);
+  }
+
   return verified;
 }
 
