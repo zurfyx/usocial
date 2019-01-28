@@ -3,6 +3,7 @@ import {
   verifyAttestation,
   sortAttestations,
   currentAttestation,
+  addAttestation,
 } from "./tools";
 
 const SAMPLE_ATTESTATIONS = [
@@ -150,4 +151,28 @@ test('current attestation returns undefined none is valid', () => {
     },
   ];
   expect(currentAttestation(attestations)).toBe(undefined);
+});
+
+test('add new attestation if new', () => {
+  const storedAttestations = [
+    SAMPLE_ATTESTATIONS[0],
+  ];
+  const newAttestation = copySampleAttestations()[0];
+  newAttestation.claim.usocialIdentity.email.push('foo@example.com');
+
+  const attestations = addAttestation(storedAttestations, newAttestation);
+  expect(attestations[0]).toEqual(SAMPLE_ATTESTATIONS[0]);
+  expect(attestations[1]).toEqual(newAttestation);
+});
+
+test('update attestation if same iss, sub, and claim', () => {
+  const storedAttestations = [
+    SAMPLE_ATTESTATIONS[0],
+  ];
+  const newAttestation = copySampleAttestations()[0];
+  newAttestation.exp = 2e9;
+
+  const attestations = addAttestation(storedAttestations, newAttestation);
+  expect(attestations.length).toBe(1);
+  expect(attestations[0]).toEqual(newAttestation);
 });

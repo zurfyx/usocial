@@ -49,9 +49,21 @@ function currentAttestation(attestations) {
   return sorted.find(attestation => verifyAttestation(attestation));
 }
 
+function addAttestation(attestations, newAttestation) {
+  // uPort app updates attestations with same issuer and claim
+  const purgedObsolete = attestations.filter((attestation) => {
+    return attestation.iss !== newAttestation.iss
+      || attestation.sub !== newAttestation.sub
+      || JSON.stringify(attestation.claim) !== JSON.stringify(newAttestation.claim);
+  });
+
+  return purgedObsolete.concat(newAttestation);
+}
+
 export {
   validateAttestation,
   verifyAttestation,
   sortAttestations,
   currentAttestation,
+  addAttestation,
 }

@@ -39,7 +39,7 @@ async function pushAttestation({
   const push = transport.push.send(pushToken, publicEncKey);
   const attestationJwt = await credentials.createVerification({
     sub: did,
-    exp: Math.floor(new Date().getTime() / 1000) + 365 * 24 * 60 * 60,
+    exp: Math.floor(new Date().getTime() / 1000) + 1 * 24 * 60 * 60,
     claim: {
       'usocialIdentity': values,
     },

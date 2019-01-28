@@ -1,6 +1,7 @@
 import React, { createContext } from 'react';
 import { useLocalStorage } from '../utils/react-context';
 import { requestDisclosure, signout as uportSignout } from '../uport'
+import { addAttestation as uportToolsAddAttestion } from '../uport/tools';
 
 const UserContext = createContext();
 
@@ -28,11 +29,10 @@ async function signout(context) {
   window.sessionStorage.clear();
 }
 
-// TODO remove attestations which content is deep equal
 function addAttestation(context, attestation) {
   context.setUser({
     ...context.user,
-    verified: context.user.verified.concat(attestation),
+    verified: uportToolsAddAttestion(context.user.verified, attestation),
   });
 }
 
