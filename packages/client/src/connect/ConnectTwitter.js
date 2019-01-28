@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import { connect } from '../utils/react-context';
 import { clearQueryParams } from '../utils/oauth2';
-import { UserContext } from '../app/UserProvider';
+import { UserContext, addAttestation, getLastAttestation } from '../app/UserProvider';
 import Loading from '../common/Loading';
 import Section from '../common/Section';
 import DefaultButton from '../common/DefaultButton';
@@ -24,14 +24,14 @@ async function requestToken() {
   window.location.href = twitterUrl.toString();
 }
 
-async function handleCallback(twitterOauthToken, twitterOauthVerifier, uportPush) {
+async function handleCallback(twitterOauthToken, twitterOauthVerifier, uportPush, attestedJwt) {
   const storedOauthToken = window.sessionStorage.getItem('oauthToken');
   if (!storedOauthToken || storedOauthToken !== twitterOauthToken) {
     throw new Error('Requested token doesn\'t match Twitter\'s');
   }
 
   const encryptedSecretStore = window.sessionStorage.getItem('encryptedSecretStore');
-  return connectTwitter(twitterOauthToken, twitterOauthVerifier, encryptedSecretStore, uportPush);
+  return connectTwitter(twitterOauthToken, twitterOauthVerifier, encryptedSecretStore, uportPush, attestedJwt);
 }
 
 function ConnectTwitter({ location, user }) {
@@ -86,7 +86,9 @@ function CallbackView({ user, twitterOauthToken, twitterOauthVerifier }) {
 
   useEffect(() => {
     (async () => {
-      await handleCallback(twitterOauthToken, twitterOauthVerifier, pushData);
+      const attestedJwt = getLastAttestation(user) && getLastAttestation(user).jwt;
+      const attestation = await handleCallback(twitterOauthToken, twitterOauthVerifier, pushData, attestedJwt);
+      await addAttestation(user, attestation);
       setSuccess(true);
     })();
   }, []);

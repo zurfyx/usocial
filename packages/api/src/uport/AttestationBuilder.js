@@ -4,11 +4,12 @@ class AttestationBuilder {
   }
   
   addOne(key, value) {
+    value = String(value);
     if (!this.values[key]) {
       this.values[key] = [];
     }
     if (this.values[key].find(stored => stored === value)) {
-      return; // Same value already present
+      return this; // Same value already present
     }
     this.values[key].push(value);
 

@@ -3,7 +3,8 @@
 const { OAuth } = require('oauth');
 const { ok } = require('../utils/router');
 const oauthActions = require('../utils/oauth');
-const { pushAttestation } = require('../uport');
+const { pushAttestation, verifyAttestation } = require('../uport');
+const AttestationBuilder = require('../uport/AttestationBuilder');
 const crypt = require('../cryptr');
 
 const oauth = new OAuth(
@@ -28,24 +29,30 @@ async function twitterRequestToken(req, res) {
 }
 
 async function connectTwitter(req, res, next) {
+  const attestedObj = req.body.attested && await verifyAttestation(req.body.attested);
+  const pushData = {
+    did: req.body.did,
+    pushToken: req.body.pushToken,
+    publicEncKey: req.body.publicEncKey,
+  };
   const {
-    did,
-    pushToken,
-    publicEncKey,
-    encryptedSecretStore,
     oauth_token: oauthToken,
     oauth_verifier: oauthVerifier,
+    encryptedSecretStore,
   } = req.query;
-  const pushData = { did, pushToken, publicEncKey };
+  
   const oauthTokenSecret = crypt.decrypt(encryptedSecretStore);
-
   const [oauthAccessToken, oauthAccessTokenSecret, results] = await getOAuthAccessToken(oauthToken, oauthTokenSecret, oauthVerifier);
   const [data, response] = await get("https://api.twitter.com/1.1/account/verify_credentials.json", oauthAccessToken, oauthAccessTokenSecret);
   const user = JSON.parse(data);
-    
-  await pushAttestation(pushData, 'twitter', user.id);
 
-  ok(res);
+  const attestationBuilder = new AttestationBuilder()
+    .addMany(attestedObj && attestedObj.claim.usocialIdentity)
+    .addOne('twitter', user.id);
+  const attestationValues = attestationBuilder.values;
+  const { attestation } = await pushAttestation(pushData, attestationValues);
+
+  res.json(attestation);
 }
 
 module.exports = {

@@ -37,16 +37,20 @@ async function connectTwitterOauthToken() {
   return { oauthToken, encryptedSecretStore };
 }
 
-function connectTwitter(twitterCode, twitterVerifier, encryptedSecretStore, uportPush) {
+async function connectTwitter(twitterCode, twitterVerifier, encryptedSecretStore, uportPush, attestedJwt) {
   const path = '/connect/twitter';
   const params = new URLSearchParams({
     oauth_token: twitterCode,
     oauth_verifier: twitterVerifier,
     encryptedSecretStore,
-    ...uportPush,
   });
   const fullPath = `${path}?${params.toString()}`;
-  return fetchGet(fullPath);
+  const request = await fetchPost(fullPath, {
+    ...uportPush,
+    attested: attestedJwt,
+  });
+  const json = await request.json();
+  return json;
 }
 
 export {
