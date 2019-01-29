@@ -6,9 +6,11 @@ const KeyValuePair  = styled.dl`
   grid-template-columns: 110px 1fr;
   grid-column-gap: 4rem;
   grid-row-gap: 0.55rem;
-
+  
   dd {
     margin-left: 0;
+    overflow-wrap: break-word;
+    overflow: hidden; // https://stackoverflow.com/a/43312314
   }
 
   @media (max-width: ${sizes.phablet}) {
