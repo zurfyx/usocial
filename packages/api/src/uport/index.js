@@ -14,6 +14,16 @@ const credentials = new Credentials({
   privateKey: process.env.UPORT_PRIVATE_KEY,
 });
 
+async function disclosureRequest(jwt) {
+  const userCredentials = await credentials.authenticateDisclosureResponse(jwt);
+
+  return {
+    did: userCredentials.did,
+    pushToken: userCredentials.pushToken,
+    publicEncKey: userCredentials.boxPub, // boxPub seems to be equal to publicEncKey for uPort (uport-transport @ push.js L42)
+  };
+}
+
 async function emailDisclosureRequest(email, callbackUrl, name = '') {
   const requestToken = await credentials.createDisclosureRequest({
     callbackUrl,
@@ -54,19 +64,6 @@ async function pushAttestation({
 }
 
 /**
- * JWT is validated and used to extract uPort information.
- * @param {values} Attestation values
- */
-async function pushAttestationFromDisclosureRequest(jwt, values) {
-  const userCredentials = await credentials.authenticateDisclosureResponse(jwt);
-  const did = userCredentials.did;
-  const pushToken = userCredentials.pushToken;
-  const publicEncKey = userCredentials.boxPub; // boxPub seems to be equal to publicEncKey for uPort (uport-transport @ push.js L42)
-
-  return pushAttestation({ did, pushToken, publicEncKey }, values);
-}
-
-/**
  * Verify JWT signature, and DID belongs to us
  * Example return:
  * { did: 'did:ethr:0xccdaa2972d2546dbd77adddcceaefb2633f582a0',
@@ -74,11 +71,14 @@ async function pushAttestationFromDisclosureRequest(jwt, values) {
  *   sub: 'did:ethr:0x47254494e3ede9bb7e97cc306fc7a6065ed923ef',
  *   claim: { usocialIdentity: { facebook: '10213829113183103' } } } 
  */
-async function verifyAttestation(jwt) {
+async function verifyAttestation(jwt, subDid) {
   const verified = await credentials.verifyDisclosure(jwt);
   
   if (verified.did !== ISS_DID) {
     throw new Error(`Attestation issuer mismatch. Expected: ${ISS_DID}; Received: ${verified.did}`);
+  }
+  if (verified.sub !== subDid) {
+    throw new Error(`Subject DID (receiver) does not match attestation's. Expected: ${subDid}; Attestation sub: ${verified.sub}`)
   }
 
   return verified;
@@ -86,8 +86,8 @@ async function verifyAttestation(jwt) {
 
 module.exports = {
   credentials,
+  disclosureRequest,
   emailDisclosureRequest,
   pushAttestation,
-  pushAttestationFromDisclosureRequest,
   verifyAttestation,
 };

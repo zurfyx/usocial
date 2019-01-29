@@ -4,7 +4,7 @@ const { pushAttestation, verifyAttestation } = require('../uport');
 const AttestationBuilder = require('../uport/AttestationBuilder');
 
 async function connectFacebook(req, res, next) {
-  const attestedObj = req.body.attested && await verifyAttestation(req.body.attested);
+  const attestedObj = req.body.attested && await verifyAttestation(req.body.attested, req.body.did);
   const pushData = {
     did: req.body.did,
     pushToken: req.body.pushToken,

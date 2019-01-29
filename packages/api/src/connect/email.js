@@ -3,7 +3,7 @@ const jwtDecode = require('jwt-decode');
 const url = require('url');
 const { host } = require('../utils/ngrok');
 const { ok, err400 } = require('../utils/router');
-const { emailDisclosureRequest, pushAttestationFromDisclosureRequest, verifyAttestation } = require('../uport');
+const { disclosureRequest, emailDisclosureRequest, verifyAttestation, pushAttestation } = require('../uport');
 const AttestationBuilder = require('../uport/AttestationBuilder');
 
 async function connectEmail(req, res) {
@@ -12,21 +12,22 @@ async function connectEmail(req, res) {
     return err400(res, 'Not a valid email address.');
   }
   
-  const attestedObj = req.body.attested && await verifyAttestation(req.body.attested);
-  const attestedJson = JSON.stringify(attestedObj);
+  const attestedJwt = req.body.attested; // We can't verify it yet because we don't know the receiver (subDid)
 
   const baseUrl = process.env.REACT_APP_API || await host();
-  const callbackUrl = `${baseUrl}/connect/email/callback?email=${email}&attested=${attestedJson}`;
+  const callbackUrl = `${baseUrl}/connect/email/callback?email=${email}&attested=${attestedJwt}`;
   await emailDisclosureRequest(email, callbackUrl, name);
 
   ok(res);
 };
 
 async function connectEmailCallback(req, res) {
-  const attestedObj = JSON.parse(req.query.attested); // Validated in connectEmail()
   const disclosureJwt = req.body.access_token;
+  const pushData = await disclosureRequest(disclosureJwt);
 
-  // pushAttestationFromDisclosureRequest will validate JWT before pushing
+  const attestedObj = req.query.attested && await verifyAttestation(req.query.attested, pushData.did);
+
+  // disclosureRequest() has already done the appropriate verifications
   const requestJwt = jwtDecode(disclosureJwt).req;
   const callbackUrl = jwtDecode(requestJwt).callback;
   const callbackEmail = url.parse(callbackUrl, true).query.email;
@@ -36,9 +37,9 @@ async function connectEmailCallback(req, res) {
     .addOne('email', callbackEmail);
   const attestationValues = attestationBuilder.values;
 
-  await pushAttestationFromDisclosureRequest(disclosureJwt, attestationValues);
+  const { attestation } = await pushAttestation(pushData, attestationValues);
 
-  ok(res);
+  res.json(attestation);
 }
 
 module.exports = {
