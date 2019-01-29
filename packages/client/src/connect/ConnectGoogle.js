@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import { connect } from '../utils/react-context';
 import { generateState, validateState, clearQueryParams } from '../utils/oauth2';
-import { UserContext, addAttestation } from '../app/UserProvider';
+import { UserContext, sync, addAttestation } from '../app/UserProvider';
 import { currentAttestation } from '../uport/tools';
 import Loading from '../common/Loading';
 import Section from '../common/Section';
@@ -49,6 +49,19 @@ const Instructions = styled.p`
 `;
 
 function DefaultView() {
+  const user = useContext(UserContext);
+  const [isConnecting, setIsConnecting] = useState(false);
+
+  async function onRequestCode() {
+    setIsConnecting(true);
+
+    // Make sure we're working with the latest attestations before adding new ones on top
+    await sync(user);
+
+    // Google flow
+    requestCode();
+  }
+
   return (
     <Section>
       <SectionHeader2>You're about to connect your Google account</SectionHeader2>
@@ -59,7 +72,8 @@ function DefaultView() {
       <Instructions>
         Your personal information is never stored on our attestation servers.
       </Instructions>
-      <DefaultButton type="submit" onClick={requestCode}>Connect</DefaultButton>
+      {!isConnecting && <DefaultButton type="submit" onClick={onRequestCode}>Connect</DefaultButton>}
+      {isConnecting && <Loading text="Connecting" />}
     </Section>
   );
 }

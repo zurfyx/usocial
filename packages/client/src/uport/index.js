@@ -20,6 +20,7 @@ async function requestDisclosure() {
   };
   const disclosureId = 'disclosureReq';
 
+  // TODO Handle popup close as rejection
   return new Promise(async (resolve) => {
     connect().requestDisclosure(disclosure, disclosureId);
     const data = await connect().onResponse(disclosureId);

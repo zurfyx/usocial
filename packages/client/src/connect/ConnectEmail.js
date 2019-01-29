@@ -2,7 +2,7 @@ import React, { useReducer } from 'react';
 import styled from 'styled-components';
 import isEmail from 'validator/lib/isEmail';
 import { connect } from '../utils/react-context';
-import { UserContext } from '../app/UserProvider';
+import { UserContext, sync } from '../app/UserProvider';
 import { currentAttestation } from '../uport/tools';
 import Loading from '../common/Loading';
 import Section from '../common/Section';
@@ -80,6 +80,9 @@ function ConnectEmail({ user }) {
       return;
     }
     dispatch({ type: 'submit' });
+
+    // Make sure we're working with the latest attestations before adding new ones on top
+    await sync(user);
     
     const attestedJwt = currentAttestation(user.user.verified) && currentAttestation(user.user.verified).jwt;
     await connectEmail(state.email, user.user.name, attestedJwt);
