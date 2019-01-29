@@ -67,6 +67,7 @@ function Profile({ user }) {
 const Avatar = styled.img`
   display: block;
   height: 80px;
+  width: 80px;
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
 `;

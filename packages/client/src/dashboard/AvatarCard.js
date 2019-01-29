@@ -20,6 +20,7 @@ const AvatarLink = styled(NeatLink)`
 
 const Avatar = styled.img`
   height: 40px;
+  width: 40px;
   border-radius: 999px;
 `;
 
