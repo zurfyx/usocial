@@ -8,6 +8,7 @@ import ToolBox from '../common/ToolBox';
 import BoxListItem from '../common/BoxListItem';
 import DefaultButton from '../common/DefaultButton';
 import Warning from '../common/Warning';
+import BoxList from '../common/BoxList';
 import SyncTool from '../shared/SyncTool';
 import { UserContext } from '../app/UserProvider';
 import { sortAttestations, currentAttestation } from '../uport/tools';
@@ -40,10 +41,12 @@ function Connections({ user }) {
       <Section>
         <SectionHeader1 border={false}>Connections</SectionHeader1>
         {attestations.length === 0 && (
-          <NoConnections>
-            No connections found.
-            <Link to="/dashboard/connect"><ConnectButton>Connect</ConnectButton></Link>
-          </NoConnections>
+          <BoxList>
+            <NoConnections>
+              No connections found.
+              <Link to="/dashboard/connect"><ConnectButton>Connect</ConnectButton></Link>
+            </NoConnections>
+          </BoxList>
         )}
         {attestations && attestations.map((attestation, i) => (
           <Fragment key={attestation.jwt}>
