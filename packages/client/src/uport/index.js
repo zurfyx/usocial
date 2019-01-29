@@ -14,7 +14,6 @@ const connect = (() => {
 async function requestDisclosure() {
   const disclosure = {
     requested: ['name', 'avatar', 'email'],
-    networkId: 'rinkeby',
     notifications: true,
     verified: ['usocialIdentity'],
   };
