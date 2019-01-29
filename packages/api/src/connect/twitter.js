@@ -29,7 +29,7 @@ async function twitterRequestToken(req, res) {
 }
 
 async function connectTwitter(req, res, next) {
-  const attestedObj = req.body.attested && await verifyAttestation(req.body.attested);
+  const attestedObj = req.body.attested && await verifyAttestation(req.body.attested, req.body.did);
   const pushData = {
     did: req.body.did,
     pushToken: req.body.pushToken,
