@@ -8,7 +8,7 @@ import ToolBox from '../common/ToolBox';
 import BoxListItem from '../common/BoxListItem';
 import DefaultButton from '../common/DefaultButton';
 import Warning from '../common/Warning';
-import RefreshTool from '../shared/RefreshTool';
+import SyncTool from '../shared/SyncTool';
 import { UserContext } from '../app/UserProvider';
 import { sortAttestations, currentAttestation } from '../uport/tools';
 import DashboardPage from '../dashboard/DashboardPage';
@@ -31,7 +31,7 @@ function Connections({ user }) {
   return (
     <DashboardPage>
       <ToolBox>
-        <RefreshTool />
+        <SyncTool />
       </ToolBox>
       <Warning id="new-connection">
         If you have added a connection recently, you may have to click on the SYNCHRONISE link above

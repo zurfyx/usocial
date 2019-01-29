@@ -8,7 +8,7 @@ import BoxMultilineHeader from '../common/BoxMultilineHeader';
 import KeyValue from '../common/KeyValue';
 import ToolBox from '../common/ToolBox';
 import ToolItem from '../common/ToolItem';
-import RefreshTool from '../shared/RefreshTool';
+import SyncTool from '../shared/SyncTool';
 import { UserContext, signout } from '../app/UserProvider';
 import DashboardPage from '../dashboard/DashboardPage';
 
@@ -17,7 +17,7 @@ function Profile({ user }) {
   return (
     <DashboardPage>
       <ToolBox>
-        <RefreshTool />
+        <SyncTool />
         <ToolItem onClick={() => signout(user)}>
           Sign out  <i className="fas fa-sign-out-alt" aria-hidden="true"></i>
         </ToolItem>

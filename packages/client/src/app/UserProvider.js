@@ -18,7 +18,7 @@ function UserProvider(props) {
 /**
  * Actions
  */
-async function refresh(context) {
+async function sync(context) {
   const data = await requestDisclosure();
   context.setUser(data);
 }
@@ -38,7 +38,7 @@ function addAttestation(context, attestation) {
 
 export {
   UserContext,
-  refresh,
+  sync,
   signout,
   addAttestation,
 };
