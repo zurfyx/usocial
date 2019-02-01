@@ -18,8 +18,7 @@ async function connectFacebook(req, res, next) {
     if (!user) {
       return err400(res, 'Got an empty Facebook user object.');
     }
-    
-    console.info(attestedObj && attestedObj.claim.usocialIdentity)
+
     const attestationBuilder = new AttestationBuilder()
       .addMany(attestedObj && attestedObj.claim.usocialIdentity)
       .addOne('facebook', user.id);
