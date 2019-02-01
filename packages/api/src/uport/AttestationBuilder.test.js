@@ -51,11 +51,16 @@ test('values are stringified', () => {
   });
 });
 
-test('add many as undefined makes no changes', () => {
-  const builder = new AttestationBuilder()
-    .addMany();
+test('add many as undefined or null makes no changes', () => {
+  const builders = [
+    new AttestationBuilder().addMany(),
+    new AttestationBuilder().addMany(null),
+    new AttestationBuilder().addMany(undefined),
+  ];
   
-  expect(builder.values).toEqual({});
+  builders.forEach((builder) => {
+    expect(builder.values).toEqual({});
+  });
 });
 
 test('add many as empty object makes no changes', () => {

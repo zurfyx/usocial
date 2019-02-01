@@ -16,8 +16,8 @@ class AttestationBuilder {
     return this;
   }
 
-  addMany(keyValues = {}) {
-    Object.entries(keyValues).forEach(([key, values]) => {
+  addMany(keyValues) {
+    Object.entries(keyValues || {}).forEach(([key, values]) => {
       values.forEach((value) => {
         this.addOne(key, value);
       });

@@ -50,7 +50,7 @@ function Connections({ user }) {
         )}
         {attestations && attestations.map((attestation, i) => (
           <Fragment key={attestation.jwt}>
-            <h2>{`#${i + 1}${attestation.jwt === current.jwt ? ' (Current)' : ''}`}</h2>
+            <h2>{`#${i + 1}${current && attestation.jwt === current.jwt ? ' (Current)' : ''}`}</h2>
             <Attestation attestation={attestation} />
           </Fragment>
         ))}
