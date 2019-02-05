@@ -19,7 +19,6 @@ function Authenticate({ user }) {
   async function onRefresh() {
     setIsSyncing(true);
     await sync.call(Authenticate, user);
-    setIsSyncing(false);
   }
 
   return (
