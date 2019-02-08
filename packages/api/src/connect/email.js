@@ -15,7 +15,7 @@ async function connectEmail(req, res) {
   const attestedJwt = req.body.attested; // We can't verify it yet because we don't know the receiver (subDid)
 
   const baseUrl = process.env.REACT_APP_API || await host();
-  const callbackUrl = `${baseUrl}/connect/email/callback?email=${email}&attested=${attestedJwt}`;
+  const callbackUrl = `${baseUrl}/connect/email/callback?email=${email}&attested=${attestedJwt || ''}`;
   await emailDisclosureRequest(email, callbackUrl, name);
 
   ok(res);
