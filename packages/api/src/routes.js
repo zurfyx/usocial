@@ -1,4 +1,5 @@
 const express = require('express');
+const { ok } = require('./utils/router');
 const { connectFacebook } = require('./connect/facebook');
 const { connectGoogle } = require('./connect/google');
 const { twitterRequestToken, connectTwitter } = require('./connect/twitter');
@@ -8,7 +9,7 @@ const { guestToken, guestVerifications } = require('./guest');
 const router = express.Router();
 
 router.get('/', (req, res) => {
-  OK(res);
+  ok(res);
 });
 
 router.post('/connect/facebook', connectFacebook);
