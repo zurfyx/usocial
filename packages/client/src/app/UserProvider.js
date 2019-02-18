@@ -22,10 +22,6 @@ function securityParams(context) {
       sub: null,
     };
   }
-  console.info({
-    iss: process.env.REACT_APP_UPORT_DID,
-    sub: context.user.did,
-  })
 
   return {
     iss: process.env.REACT_APP_UPORT_DID,
