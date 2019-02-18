@@ -1,9 +1,9 @@
 import React, { useReducer } from 'react';
 import styled from 'styled-components';
 import isEmail from 'validator/lib/isEmail';
+import { currentAttestation } from 'usocial';
 import { connect } from '../utils/react-context';
-import { UserContext, sync } from '../app/UserProvider';
-import { currentAttestation } from '../uport/tools';
+import { UserContext, sync, securityParams } from '../app/UserProvider';
 import Loading from '../common/Loading';
 import Section from '../common/Section';
 import DefaultButton from '../common/DefaultButton';
@@ -84,7 +84,8 @@ function ConnectEmail({ user }) {
     // Make sure we're working with the latest attestations before adding new ones on top
     await sync(user);
     
-    const attestedJwt = currentAttestation(user.user.verified) && currentAttestation(user.user.verified).jwt;
+    const attested = currentAttestation(user.user.verified, securityParams(user));
+    const attestedJwt = attested && attested.jwt;
     await connectEmail(state.email, user.user.name, attestedJwt);
     dispatch({ type: 'success' });
   }

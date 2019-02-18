@@ -2,6 +2,8 @@ const { Credentials } = require('uport-credentials');
 const { transport, message } = require('uport-transports');
 const qrcode = require('qrcode');
 const jwtDecode = require('jwt-decode');
+const { decodeJWT } = require('did-jwt');
+const { verifyAttestation: usocialVerifyAttestation } = require('usocial');
 const { send } = require('../utils/email');
 const { qrTemplate } = require('./template');
 
@@ -72,16 +74,17 @@ async function pushAttestation({
  *   claim: { usocialIdentity: { facebook: '10213829113183103' } } } 
  */
 async function verifyAttestation(jwt, subDid) {
-  const verified = await credentials.verifyDisclosure(jwt);
-  
-  if (verified.did !== ISS_DID) {
-    throw new Error(`Attestation issuer mismatch. Expected: ${ISS_DID}; Received: ${verified.did}`);
-  }
-  if (verified.sub !== subDid) {
-    throw new Error(`Subject DID (receiver) does not match attestation's. Expected: ${subDid}; Attestation sub: ${verified.sub}`)
-  }
+  await credentials.verifyDisclosure(jwt); // A completely different attestation format
+  const { payload: verifiedPayload } = await decodeJWT(jwt); // This one returns the expected format
 
-  return verified;
+  if (!usocialVerifyAttestation(verifiedPayload, {
+    iss: ISS_DID,
+    sub: subDid,
+  })) {
+    throw new Error(`Disclosure verification failed. Expected ISS: ${ISS_DID}, SUB: ${subDid}; Received: ${JSON.stringify(verifiedPayload)}`);
+  };
+
+  return verifiedPayload;
 }
 
 module.exports = {

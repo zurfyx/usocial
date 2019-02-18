@@ -1,7 +1,7 @@
 import React, { createContext } from 'react';
+import { addAttestation as usocialToolsAddAttestion } from 'usocial';
 import { useLocalStorage } from '../utils/react-context';
 import { requestDisclosure, signout as uportSignout } from '../uport'
-import { addAttestation as uportToolsAddAttestion } from '../uport/tools';
 
 const UserContext = createContext();
 
@@ -13,6 +13,20 @@ function UserProvider(props) {
       {props.children}
     </UserContext.Provider>
   );
+}
+
+function securityParams(context) {
+  if (!context.user) {
+    return {
+      iss: null,
+      sub: null,
+    };
+  }
+
+  return {
+    iss: process.env.REACT_APP_UPORT_DID,
+    sub: context.user.did,
+  };
 }
 
 /**
@@ -32,12 +46,13 @@ async function signout(context) {
 function addAttestation(context, attestation) {
   context.setUser({
     ...context.user,
-    verified: uportToolsAddAttestion(context.user.verified, attestation),
+    verified: usocialToolsAddAttestion(context.user.verified, attestation),
   });
 }
 
 export {
   UserContext,
+  securityParams,
   sync,
   signout,
   addAttestation,
