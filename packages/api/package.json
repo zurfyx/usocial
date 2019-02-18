@@ -25,7 +25,7 @@
     "qrcode": "^1.3.3",
     "uport-credentials": "^1.1.4",
     "uport-transports": "^0.2.3",
-    "usocial": "file:../usocial",
+    "usocial": "^0.1.0",
     "validator": "^10.11.0"
   },
   "devDependencies": {
