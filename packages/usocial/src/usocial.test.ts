@@ -177,7 +177,7 @@ test('attestation is verified if SUB matches passed SUB DID', () => {
 
 test('verified attestions have to be valid', () => {
  const attestation = copySampleAttestations()[0];
- delete attestation.jwt;
+ delete attestation.claim;
  expect(verifyAttestation(attestation, SAMPLE_SECURITY_PARAMS)).toBe(false);
 });
 
