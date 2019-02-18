@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { sortAttestations, currentAttestation } from 'usocial';
 import { connect } from '../utils/react-context';
 import Section from '../common/Section';
 import SectionHeader1 from '../common/SectionHeader1';
@@ -10,8 +11,7 @@ import DefaultButton from '../common/DefaultButton';
 import Warning from '../common/Warning';
 import BoxList from '../common/BoxList';
 import SyncTool from '../shared/SyncTool';
-import { UserContext } from '../app/UserProvider';
-import { sortAttestations, currentAttestation } from '../uport/tools';
+import { UserContext, securityParams } from '../app/UserProvider';
 import DashboardPage from '../dashboard/DashboardPage';
 import Attestation from './Attestation';
 
@@ -29,7 +29,7 @@ function Connections({ user }) {
   const verified = user.user.verified;
   const invalid = user.user.invalid;
   const attestations = sortAttestations([].concat(verified, invalid));
-  const current = currentAttestation(verified);
+  const current = currentAttestation(verified, securityParams(user));
 
   return (
     <DashboardPage>

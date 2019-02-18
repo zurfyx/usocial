@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
+import { currentAttestation } from 'usocial';
 import { connect } from '../utils/react-context';
 import { clearQueryParams } from '../utils/oauth2';
-import { UserContext, sync, addAttestation } from '../app/UserProvider';
-import { currentAttestation } from '../uport/tools';
+import { UserContext, sync, securityParams, addAttestation } from '../app/UserProvider';
 import Loading from '../common/Loading';
 import Section from '../common/Section';
 import DefaultButton from '../common/DefaultButton';
@@ -93,7 +93,8 @@ function CallbackView({ user, twitterOauthToken, twitterOauthVerifier }) {
 
   useEffect(() => {
     (async () => {
-      const attestedJwt = currentAttestation(user.user.verified) && currentAttestation(user.user.verified).jwt;
+      const attested = currentAttestation(user.user.verified, securityParams(user));
+      const attestedJwt = attested && attested.jwt;
       const attestation = await handleCallback(twitterOauthToken, twitterOauthVerifier, pushData, attestedJwt);
       await addAttestation(user, attestation);
       setSuccess(true);

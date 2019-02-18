@@ -1,19 +1,22 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import BoxList from '../common/BoxList';
 import {
   validateAttestation,
   verifyAttestation,
-} from '../uport/tools';
+} from 'usocial';
+import { UserContext, securityParams } from '../app/UserProvider';
 import AttestationItem, { Malformed, DidMismatch, Invalid } from './AttestationItem';
 
 function Attestation({ attestation, isInvalid }) {
+  const userContext = useContext(UserContext);
+
   if (isInvalid) {
     return <BoxList><Invalid /></BoxList>;
   }
   if (!validateAttestation(attestation)) {
     return <BoxList><Malformed /></BoxList>;
   }
-  if (!verifyAttestation(attestation)) {
+  if (!verifyAttestation(attestation, securityParams(userContext))) {
     return <BoxList><DidMismatch attestation={attestation} /></BoxList>;
   }
 

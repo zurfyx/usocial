@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { colors, sizes } from '../app/theme';
 import BoxListItem from '../common/BoxListItem';
 import KeyValue from '../common/KeyValue';
+import { securityParams, UserContext } from '../app/UserProvider';
 
 const ISS_DID = process.env.REACT_APP_UPORT_DID;
 
@@ -99,16 +100,24 @@ const ErrorItem = styled.div`
 `;
 
 function DidMismatch({ attestation }) {
-  const expected = ISS_DID;
-  const received = attestation.iss;
+  const userContext = useContext(UserContext);
+  const params = securityParams(userContext);
+  const expectedDid = params.iss;
+  const receivedDid = attestation.iss;
+  const expectedSub = params.sub;
+  const receivedSub = attestation.sub;
   return (
     <ErrorItem>
-      DID mismatch. This attestation was not created by Usocial Identity.
+      DID/SUB mismatch. This attestation was not created by Usocial Identity or does not belong to you.
       <KeyValue>
-        <dt>Expected</dt>
-        <dd>${expected}</dd>
-        <dt>Received</dt>
-        <dd>${received}</dd>
+        <dt>Expected DID</dt>
+        <dd>${expectedDid}</dd>
+        <dt>Received DID</dt>
+        <dd>${receivedDid}</dd>
+        <dt>Expected SUB</dt>
+        <dd>${expectedSub}</dd>
+        <dt>Received SUB</dt>
+        <dd>${receivedSub}</dd>
       </KeyValue>
     </ErrorItem>
   );
