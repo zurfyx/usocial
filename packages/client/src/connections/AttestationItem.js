@@ -108,7 +108,7 @@ function DidMismatch({ attestation }) {
         <dt>Expected</dt>
         <dd>${expected}</dd>
         <dt>Received</dt>
-        <dt>${received}</dt>
+        <dd>${received}</dd>
       </KeyValue>
     </ErrorItem>
   );

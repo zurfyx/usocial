@@ -14,7 +14,7 @@ function Attestation({ attestation, isInvalid }) {
     return <BoxList><Malformed /></BoxList>;
   }
   if (!verifyAttestation(attestation)) {
-    return <BoxList><DidMismatch /></BoxList>;
+    return <BoxList><DidMismatch attestation={attestation} /></BoxList>;
   }
 
   const usocialClaim = attestation.claim.usocialIdentity;
