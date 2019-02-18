@@ -80,7 +80,7 @@ function Sidenav() {
         <Level0Item>Manage</Level0Item>
         <NeatList>
           <Level1Link to="/dashboard" exact={true} activeClassName="active"><Level1Item>All connections</Level1Item></Level1Link>
-          <Level1Item onClick={() => window.alert('Coming soon')}>Integrate</Level1Item>
+          <Level1Link to="/dashboard/integrate" exact={true} activeClassName="active"><Level1Item>Integrate</Level1Item></Level1Link>
         </NeatList>
         <Level0Item>Account</Level0Item>
         <NeatList>
