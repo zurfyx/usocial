@@ -8,7 +8,7 @@ interface Attestation {
   claim: any;
   exp: number;
   iss: string;
-  jwt: string;
+  jwt?: string;
 }
 
 interface SecurityParams {
@@ -20,7 +20,7 @@ interface SecurityParams {
  * Validates attestation format. The boxing JWT should be first verified through uPort.
  */
 function validateAttestation(attestation: Attestation): boolean {
-  const properties = ['iat', 'sub', 'claim', 'exp', 'iss', 'jwt'];
+  const properties = ['iat', 'sub', 'claim', 'exp', 'iss'];
   if (properties.find(property => !(property in attestation))) { // tslint:ignore-line
     return false;
   }
@@ -130,6 +130,10 @@ function attestedEmails(attestations: Attestation[], securityParams: SecurityPar
 // This function should be used through already-known invalid attestations as a way to determine a
 // possible cause of the invalidation.
 function hasExpired(attestation: Attestation) {
+  if (!attestation.exp) {
+    throw new Error('Attestation has no expiration (exp) defined.')
+  }
+
   return Date.now() > attestation.exp * 1000;
 }
 
