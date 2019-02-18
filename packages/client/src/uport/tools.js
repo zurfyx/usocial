@@ -60,10 +60,19 @@ function addAttestation(attestations, newAttestation) {
   return purgedObsolete.concat(newAttestation);
 }
 
+// As a developer implementing an attestation verifier, you may not need it. uPort does already 
+// do this for you through authenticateDisclosureResponse or verifyJWT.
+// This function should be used through already-known invalid attestations as a way to determine a
+// possible cause of the invalidation.
+function hasExpired(attestation) {
+  return Date.now() > attestation.exp * 1000;
+}
+
 export {
   validateAttestation,
   verifyAttestation,
   sortAttestations,
   currentAttestation,
   addAttestation,
+  hasExpired,
 }

@@ -4,6 +4,7 @@ import {
   sortAttestations,
   currentAttestation,
   addAttestation,
+  hasExpired,
 } from "./tools";
 
 const SAMPLE_ATTESTATIONS = [
@@ -175,4 +176,20 @@ test('update attestation if same iss, sub, and claim', () => {
   const attestations = addAttestation(storedAttestations, newAttestation);
   expect(attestations.length).toBe(1);
   expect(attestations[0]).toEqual(newAttestation);
+});
+
+test('hasExpired returns true if attestation has expired', () => {
+  const dateMock = jest.spyOn(Date, 'now').mockImplementation(() => 1550482657465); // Feb 18, 2019
+  const attestation = copySampleAttestations()[0];
+  attestation.exp = 1550481657; // Earlier same day
+  expect(hasExpired(attestation)).toBe(true);
+  dateMock.mockRestore();
+});
+
+test('hasExpired returns false if attestation has not expired', () => {
+  const dateMock = jest.spyOn(Date, 'now').mockImplementation(() => 1550482657465);
+  const attestation = copySampleAttestations()[0];
+  attestation.exp = 1580211530; // Jan 28, 2020 (next year; note that 3 less digits)
+  expect(hasExpired(attestation)).toBe(false);
+  dateMock.mockRestore();
 });

@@ -94,36 +94,55 @@ function AttestationItem({
   );
 }
 
-const ItemSpan = styled.p`
-  grid-column: 1 / span 2;
+const ErrorItem = styled.div`
+  padding: 1.5rem;
 `;
 
-function DidMismatch(attestation) {
+function DidMismatch({ attestation }) {
   const expected = ISS_DID;
   const received = attestation.iss;
   return (
-    <Item>
-      <ItemSpan>
-        DID mismatch. This attestation was not created by Usocial Identity.
-        <p>Expected: ${expected}</p>
-        <p>Received: ${received}</p>
-      </ItemSpan>
-    </Item>
+    <ErrorItem>
+      DID mismatch. This attestation was not created by Usocial Identity.
+      <KeyValue>
+        <dt>Expected</dt>
+        <dd>${expected}</dd>
+        <dt>Received</dt>
+        <dt>${received}</dt>
+      </KeyValue>
+    </ErrorItem>
   );
 }
 
 function Malformed() {
   return (
-    <Item>
-      <ItemSpan>
-        Malformed attestation.
-      </ItemSpan>
-    </Item>
+    <ErrorItem>Malformed attestation.</ErrorItem>
+  );
+}
+
+function Expired({ attestation }) {
+  const { exp } = attestation;
+  return (
+    <ErrorItem>
+      <p>Attestation marked as invalid by uPort (Expired).</p>
+      <KeyValue>
+        <dt>Expiration date</dt>
+        <dd>{new Date(exp * 1e3).toLocaleDateString()}</dd>
+      </KeyValue>
+    </ErrorItem>
+  );
+}
+
+function Invalid() {
+  return (
+    <ErrorItem>Attestation marked as invalid by uPort.</ErrorItem>
   );
 }
 
 export {
   Malformed,
   DidMismatch,
+  Expired,
+  Invalid,
 };
 export default AttestationItem;

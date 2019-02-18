@@ -26,8 +26,10 @@ const ConnectButton = styled(DefaultButton)`
 `;
 
 function Connections({ user }) {
-  const attestations = sortAttestations(user.user.verified);
-  const current = currentAttestation(attestations);
+  const verified = user.user.verified;
+  const invalid = user.user.invalid;
+  const attestations = sortAttestations([].concat(verified, invalid));
+  const current = currentAttestation(verified);
 
   return (
     <DashboardPage>
@@ -49,9 +51,9 @@ function Connections({ user }) {
           </BoxList>
         )}
         {attestations && attestations.map((attestation, i) => (
-          <Fragment key={attestation.jwt}>
+          <Fragment key={attestation.jwt || attestation}>
             <h2>{`#${i + 1}${current && attestation.jwt === current.jwt ? ' (Current)' : ''}`}</h2>
-            <Attestation attestation={attestation} />
+            <Attestation attestation={attestation} isInvalid={invalid.includes(attestation)} />
           </Fragment>
         ))}
       </Section>

@@ -4,10 +4,12 @@ import {
   validateAttestation,
   verifyAttestation,
 } from '../uport/tools';
-import AttestationItem, { Malformed, DidMismatch } from './AttestationItem';
+import AttestationItem, { Malformed, DidMismatch, Invalid } from './AttestationItem';
 
-function Attestation({ attestation }) {
-  
+function Attestation({ attestation, isInvalid }) {
+  if (isInvalid) {
+    return <BoxList><Invalid /></BoxList>;
+  }
   if (!validateAttestation(attestation)) {
     return <BoxList><Malformed /></BoxList>;
   }
