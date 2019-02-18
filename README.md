@@ -8,6 +8,8 @@
 [![Build Status](https://travis-ci.org/zurfyx/usocial.svg?branch=development)](https://travis-ci.org/zurfyx/usocial)<br/>
 [Development] https://uport-social-dev.herokuapp.com
 
+- [uSocial Tools](https://github.com/zurfyx/usocial/tree/development/packages/usocial)
+
 ## Getting started
 
 ```
