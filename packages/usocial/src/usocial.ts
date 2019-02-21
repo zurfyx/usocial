@@ -58,10 +58,10 @@ function verifyAttestation(attestation: Attestation, securityParams: SecurityPar
     return false;
   }
 
-  if (attestation.iss !== securityParams.iss) {
+  if (attestation.iss.toLowerCase() !== securityParams.iss.toLowerCase()) {
     return false;
   }
-  if (attestation.sub !== securityParams.sub) {
+  if (attestation.sub.toLowerCase() !== securityParams.sub.toLowerCase()) {
     return false;
   }
 

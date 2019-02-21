@@ -175,6 +175,14 @@ test('attestation is verified if SUB matches passed SUB DID', () => {
  expect(verifyAttestation(goodAttestation, SAMPLE_SECURITY_PARAMS)).toBe(true);
 });
 
+test('ISS/SUB should be case insensitive for verifyAttestation security params', () => {
+  const attestation: Attestation = copySampleAttestations()[0];
+  attestation.sub = attestation.sub.toUpperCase();
+  attestation.iss = attestation.iss.toUpperCase();
+
+  expect(verifyAttestation(attestation, SAMPLE_SECURITY_PARAMS)).toBe(true);
+});
+
 test('verified attestions have to be valid', () => {
  const attestation = copySampleAttestations()[0];
  delete attestation.claim;
