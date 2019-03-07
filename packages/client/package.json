@@ -20,7 +20,7 @@
     "react-scripts": "2.1.2",
     "serve": "^10.1.1",
     "styled-components": "^4.1.3",
-    "uport-connect": "^1.1.4",
+    "uport-connect": "git://github.com/zurfyx/uport-connect.git#ipfs-patch",
     "usocial": "^0.1.0",
     "validator": "^10.11.0"
   },
