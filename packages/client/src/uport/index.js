@@ -1,4 +1,4 @@
-import { Connect } from 'uport-connect-dev';
+import { Connect } from 'uport-connect';
 
 const connect = (() => {
   let instance;
